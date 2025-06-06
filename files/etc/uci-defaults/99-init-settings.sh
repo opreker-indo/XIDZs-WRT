@@ -252,7 +252,7 @@ check_status "chmod +x /etc/init.d/vnstat_backup && /etc/init.d/vnstat_backup en
 
 # permission vnstat.conf
 log_status "INFO" "Atur Permssion File vnstat.conf"
-check_status "chmod 600 /etc/vnstat.conf"
+check_status "chmod 600 /etc/vnstat.conf" "set permssion vnstat.conf"
 
 # add TTL
 log_status "INFO" "Adding and running TTL script..."
