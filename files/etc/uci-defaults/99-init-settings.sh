@@ -251,8 +251,8 @@ log_status "INFO" "Setting up VnStat database backup..."
 check_status "chmod +x /etc/init.d/vnstat_backup && /etc/init.d/vnstat_backup enable" "VnStat backup service enabled"
 
 # permission vnstat.conf
-log_status "INFO" "Atur Permssion File vnstat.conf"
-check_status "chmod 600 /etc/vnstat.conf" "set permssion vnstat.conf"
+log_status "INFO" "Set Permission vnstat.conf"
+check_status "chmod 600 /etc/vnstat.conf" "set permission vnstat.conf"
 
 # add TTL
 log_status "INFO" "Adding and running TTL script..."
