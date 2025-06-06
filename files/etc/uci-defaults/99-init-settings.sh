@@ -250,6 +250,10 @@ check_status "/www/vnstati/vnstati.sh" "VnStati script executed"
 log_status "INFO" "Setting up VnStat database backup..."
 check_status "chmod +x /etc/init.d/vnstat_backup && /etc/init.d/vnstat_backup enable" "VnStat backup service enabled"
 
+# permission vnstat.conf
+log_status "INFO" "Atur Permssion File vnstat.conf"
+check_status "chmod 600 /etc/vnstat.conf"
+
 # add TTL
 log_status "INFO" "Adding and running TTL script..."
 if [ -f /root/indowrt.sh ]; then
