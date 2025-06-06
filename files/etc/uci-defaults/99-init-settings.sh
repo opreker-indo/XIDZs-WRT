@@ -109,6 +109,9 @@ check_status "uci set network.tethering.device='usb0'" "Tethering device set to 
 check_status "uci set network.modem=interface" "Modem interface created"
 check_status "uci set network.modem.proto='dhcp'" "Modem protocol set to DHCP"
 check_status "uci set network.modem.device='eth1'" "Modem device set to eth1"
+check_status "uci set network.wan=interface" "Wan interface created"
+check_status "uci set network.wan.proto='none'" "Wan proto set to None"
+check_status "uci set network.wan.device='wwan0'" "Wan device set to wwan0"
 check_status "uci delete network.wan6" "delete wan6"
 check_status "uci commit network" "Network configuration committed"
 
