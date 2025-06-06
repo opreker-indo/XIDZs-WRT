@@ -17,7 +17,7 @@ PACKAGES+=" busybox libc adb coreutils-base64 coreutils-stty coreutils-stat core
 zoneinfo-core zoneinfo-asia liblua libubus-lua libiwinfo libiwinfo-data libiwinfo-lua \
 libjson-script luci-lib-base luci-lib-ip luci-lib-ipkg luci-lib-jsonc luci-lib-nixio liblucihttp \
 liblucihttp-lua curl wget-ssl tar unzip uuidgen screen jq \
-block-mount cgi-io dnsmasq-full rpcd rpcd-mod-file rpcd-mod-iwinfo rpcd-mod-luci \
+block-mount cgi-io smartmontools dnsmasq-full rpcd rpcd-mod-file rpcd-mod-iwinfo rpcd-mod-luci \
 rpcd-mod-rrdns uhttpd uhttpd-mod-ubus luci-base luci-compat luci luci-ssl \
 luci-mod-admin-full luci-mod-network luci-mod-status luci-mod-system luci-proto-ipv6 luci-proto-ppp"                                                                                   
 
@@ -65,7 +65,7 @@ PACKAGES+=" tailscale luci-app-tailscale"
 PACKAGES+=" speedtestcli luci-app-eqosplus"
 
 # Theme
-PACKAGES+=" luci-theme-argon luci-theme-alpha luci-theme-edge"
+PACKAGES+=" luci-theme-argon luci-theme-alpha luci-theme-material"
 
 # Php8
 PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
@@ -84,7 +84,7 @@ handle_profile_packages() {
 
     # Packages OPHUB | ULO
     if [[ "${TYPE}" == "OPHUB" ]]; then
-        PACKAGES+=" btrfs-progs kmod-fs-btrfs luci-app-amlogic"
+        PACKAGES+=" kmod-fs-btrfs btrfs-progs luci-app-amlogic"
         EXCLUDED+=" -procd-ujail"
     elif [[ "${TYPE}" == "ULO" ]]; then
         PACKAGES+=" luci-app-amlogic"
