@@ -76,13 +76,17 @@ rules:
 - RULE-SET,Bankid,SERVER-UMUM
 - RULE-SET,Tiktok,SERVER-UMUM
 - RULE-SET,Meta,SERVER-UMUM
+- AND,((NOT,((RULE-SET,Umum))),(NETWORK,TCP)),SERVER-GAME
+- AND,((NOT,((RULE-SET,Umum))),(NETWORK,UDP)),SERVER-GAME
 - MATCH,SERVER-UMUM
 dns:
   proxy-server-nameserver:
-    - system://auto
-    - dhcp://usb0
-    - dhcp://eth1
-    - dhcp://wwan0
+    - 112.215.203.246 # DNS XL
+    - 112.215.203.247 # DNS XL
+    - 112.215.203.248 # DNS XL
+    - 112.215.203.254 # DNS XL
+    - 112.215.198.248 # DNS XL
+    - 112.215.198.254 # DNS XL
   nameserver:
     - 1.1.1.1
     - 1.0.0.1
