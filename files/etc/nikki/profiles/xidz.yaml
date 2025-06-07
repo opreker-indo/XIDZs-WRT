@@ -5,35 +5,35 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '150'
+      interval: '240'
   MIX:
     type: file
     path: ./proxy_provider/mix.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '150'
+      interval: '240'
   MODEM1:
     type: file
     path: ./proxy_provider/modem1.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '150'
+      interval: '240'
   MODEM2:
     type: file
     path: ./proxy_provider/modem2.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '150'
+      interval: '240'
   DIRECTMODEM:
     type: file
     path: ./proxy_provider/directmodem.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '150'
+      interval: '240'
 proxy-groups:
 - name: AUTO-ID-MIX
   type: fallback
@@ -42,7 +42,7 @@ proxy-groups:
   - ID
   - MIX
   url: http://www.gstatic.com/generate_204
-  interval: '150'
+  interval: '240'
 - name: LB-MIX-ID
   type: load-balance
   strategy: consistent-hashing
@@ -51,7 +51,7 @@ proxy-groups:
   - MIX
   - ID
   url: http://www.gstatic.com/generate_204
-  interval: '150'
+  interval: '240'
 - name: MODEM1
   type: select
   interface-name: usb0
@@ -66,13 +66,13 @@ proxy-groups:
   - MODEM2
 - name: LB-2-MODEM
   type: load-balance
-  strategy: consistent-hashing
+  strategy: round-robin
   disable-udp: false
   proxies:
   - MODEM1
   - MODEM2
   url: http://www.gstatic.com/generate_204
-  interval: '150'
+  interval: '240'
 - name: SERVER-UMUM
   type: select
   disable-udp: false
@@ -150,25 +150,19 @@ rules:
 - RULE-SET,Tiktok,SERVER-UMUM
 - RULE-SET,Meta,SERVER-INDO
 - RULE-SET,Oisd_small,BLOCK-IKLAN
-- AND,((NOT,((RULE-SET,Umum))),(NETWORK,TCP)),SERVER-GAME
-- AND,((NOT,((RULE-SET,Umum))),(NETWORK,UDP)),SERVER-GAME
 - MATCH,SERVER-UMUM
 dns:
   proxy-server-nameserver:
-    - 112.215.203.246 # DNS XL
-    - 112.215.203.247 # DNS XL
-    - 112.215.203.248 # DNS XL
-    - 112.215.203.254 # DNS XL
-    - 112.215.198.248 # DNS XL
-    - 112.215.198.254 # DNS XL
+    - dhcp://eth1 # usb0 wwan0
+    - 192.168.2.1 # IP MODEM
   nameserver:
     - 1.1.1.1
-    - 1.0.0.1
-    - https://dns.cloudflare.com/dns-query
-  fallback:
     - 8.8.8.8
-    - 8.8.4.4
-    - https://dns.google.com/dns-query
+    - 1.0.0.1
+  fallback:
+    - 9.9.9.9
+    - 149.112.112.112
+    - 208.67.222.222
 ntp:
   servers:
     - pool.ntp.org
