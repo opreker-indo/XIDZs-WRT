@@ -74,7 +74,7 @@ configure_x86_64() {
 
 # Apply x86_32-specific configurations
 configure_x86_32() {
-    if [[ "${ARCH_1}" =~ ^i[3-6]86$ ]] || [ "${ARCH_1}" == "i386" ]; then
+    if [ "${ARCH_1}" == "i386" ]; then
         log "INFO" "Applying x86_32 specific configurations"
         # Disable ISO images generation
         sed -i "s/CONFIG_ISO_IMAGES=y/# CONFIG_ISO_IMAGES is not set/" .config
