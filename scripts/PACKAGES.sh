@@ -56,7 +56,7 @@ packages_custom+=(
     "dns2tcp_|${REPOS[IMMORTALWRT]}/packages"
     "luci-theme-argon_|${REPOS[IMMORTALWRT]}/luci"
     
-    "speedtestcli_|${REPOS[KIDDIN9]}"
+    "speedtest-cli_|${REPOS[KIDDIN9]}"
     "luci-app-eqosplus_|${REPOS[KIDDIN9]}"
     "luci-app-internet-detector_|${REPOS[KIDDIN9]}"
     "internet-detector_|${REPOS[KIDDIN9]}"
