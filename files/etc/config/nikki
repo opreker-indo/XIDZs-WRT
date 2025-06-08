@@ -2,9 +2,8 @@
 config status 'status'
 
 config config 'config'
-	option init '1'
 	option enabled '0'
-	option profile 'file:xidz-lite.yaml'
+	option profile 'file:xidz-simple.yaml'
 	option start_delay '5'
 	option scheduled_restart '0'
 	option cron_expression '0 3 * * *'
@@ -79,7 +78,7 @@ config mixin 'mixin'
 	option tcp_keep_alive_idle '50'
 	option tcp_keep_alive_interval '50'
 	option ui_name 'Nikki'
-	option api_secret 'xidz'
+	option api_secret '689897'
 	option sniffer '1'
 	option sniffer_sniff_dns_mapping '1'
 	option sniffer_sniff_pure_ip '1'
@@ -90,8 +89,8 @@ config mixin 'mixin'
 	option geox_update_interval '24'
 
 config env 'env'
-	option disable_safe_path_check '0'
-	option disable_loopback_detector '0'
+	option disable_safe_path_check '1'
+	option disable_loopback_detector '1'
 	option disable_quic_go_gso '0'
 	option disable_quic_go_ecn '0'
 
@@ -106,14 +105,14 @@ config lan_access_control
 config authentication
 	option enabled '0'
 	option username 'nikki'
-	option password 'xidz'
+	option password '689897'
 
 config hosts
 	option enabled '0'
 	option domain_name 'localhost'
 	list ip '127.0.0.1'
 	list ip '::1'
-	
+
 config nameserver
 	option enabled '1'
 	option type 'default-nameserver'
@@ -140,7 +139,7 @@ config nameserver
 	list nameserver '1.1.1.1'
 	list nameserver '8.8.8.8'
 	list nameserver '1.0.0.1'
-	
+
 config nameserver
 	option enabled '1'
 	option type 'fallback'
