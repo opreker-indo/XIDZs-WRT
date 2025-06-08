@@ -29,7 +29,6 @@ on:
           - Raspberry Pi 3B
           - Raspberry Pi 4B
           - X86-64
-          - X86-32
           - Nanopi-r2s
           - Nanopi-r3s
           - Orangepi R1 Plus
@@ -95,7 +94,6 @@ jobs:
               "Raspberry Pi 3B",
               "Raspberry Pi 4B",
               "X86-64",
-              "X86-32",
               "Nanopi-r2s",
               "Nanopi-r3s",
               "Orangepi R1 Plus",
