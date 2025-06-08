@@ -5,35 +5,42 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
   MIX:
     type: file
     path: ./proxy_provider/mix.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
+  CF-MIX:
+    type: file
+    path: ./proxy_provider/mix-lifetime.yaml
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: '120'
   MODEM1:
     type: file
     path: ./proxy_provider/modem1.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
   MODEM2:
     type: file
     path: ./proxy_provider/modem2.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
   DIRECTMODEM:
     type: file
     path: ./proxy_provider/directmodem.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
 proxy-groups:
 - name: AUTO-ID-MIX
   type: fallback
@@ -41,8 +48,9 @@ proxy-groups:
   use:
   - ID
   - MIX
+  - CF-MIX
   url: http://www.gstatic.com/generate_204
-  interval: '240'
+  interval: '120'
 - name: LB-MIX-ID
   type: load-balance
   strategy: consistent-hashing
@@ -50,8 +58,9 @@ proxy-groups:
   use:
   - MIX
   - ID
+  - CF-MIX
   url: http://www.gstatic.com/generate_204
-  interval: '240'
+  interval: '120'
 - name: MODEM1
   type: select
   interface-name: usb0
@@ -72,7 +81,7 @@ proxy-groups:
   - MODEM1
   - MODEM2
   url: http://www.gstatic.com/generate_204
-  interval: '240'
+  interval: '120'
 - name: SERVER-UMUM
   type: select
   disable-udp: false
@@ -153,8 +162,7 @@ rules:
 - MATCH,SERVER-UMUM
 dns:
   proxy-server-nameserver:
-    - dhcp://eth1 # usb0 wwan0
-    - 192.168.2.1 # IP MODEM
+    - dhcp://"eth1" # usb0 wwan0
   nameserver:
     - 1.1.1.1
     - 8.8.8.8
