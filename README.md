@@ -31,6 +31,7 @@ XIDZs-WRT Builder adalah tool yang mendukung berbagai device untuk custom build 
 ## FITUR - FITUR
 
 ### Theme & UI
+- **Tema Material** - Interface simple dan Smooth
 - **Tema Alpha** - Interface modern dan clean
 - **Tema Argon** - Theme elegant dengan design responsive
 
