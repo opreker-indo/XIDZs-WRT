@@ -308,7 +308,7 @@ jobs:
               echo "TARGET_NAME=x86-generic" >> $GITHUB_ENV
               echo "ARCH_1=i686" >> $GITHUB_ENV
               echo "ARCH_2=i386" >> $GITHUB_ENV
-              echo "ARCH_3=x86_32" >> $GITHUB_ENV
+              echo "ARCH_3=i386_pentium4" >> $GITHUB_ENV
               ;;
             "Nanopi-r2s")
               echo "PROFILE=friendlyarm_nanopi-r2s" >> $GITHUB_ENV
