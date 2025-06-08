@@ -26,8 +26,8 @@ FORMAT3: &TR_WS
   udp: true
 
 BUG:
- - &bug1 
- - &bug2 line.me
+ - &bug1 bug.com
+ - &bug2
  - &bug3 
  
 CLOUDFLARE KEY:
@@ -60,7 +60,7 @@ PATH AKUN:
  - &cf6 
  
 WILCARD:
- - &wild1
+ - &wild1 bug.com.divarcdn.com
  - &wild2
  - &wild3
  - &wild4
