@@ -29,6 +29,7 @@ on:
           - Raspberry Pi 3B
           - Raspberry Pi 4B
           - X86-64
+          - X86-32
           - Nanopi-r2s
           - Nanopi-r3s
           - Orangepi R1 Plus
@@ -94,6 +95,7 @@ jobs:
               "Raspberry Pi 3B",
               "Raspberry Pi 4B",
               "X86-64",
+              "X86-32",
               "Nanopi-r2s",
               "Nanopi-r3s",
               "Orangepi R1 Plus",
@@ -299,6 +301,14 @@ jobs:
               echo "ARCH_1=amd64" >> $GITHUB_ENV
               echo "ARCH_2=x86_64" >> $GITHUB_ENV
               echo "ARCH_3=x86_64" >> $GITHUB_ENV
+              ;;
+            "X86-32")
+              echo "PROFILE=generic" >> $GITHUB_ENV
+              echo "TARGET_SYSTEM=x86/generic" >> $GITHUB_ENV
+              echo "TARGET_NAME=x86-generic" >> $GITHUB_ENV
+              echo "ARCH_1=i686" >> $GITHUB_ENV
+              echo "ARCH_2=i386" >> $GITHUB_ENV
+              echo "ARCH_3=x86_32" >> $GITHUB_ENV
               ;;
             "Nanopi-r2s")
               echo "PROFILE=friendlyarm_nanopi-r2s" >> $GITHUB_ENV
