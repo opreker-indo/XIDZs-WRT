@@ -74,7 +74,7 @@ configure_x86_64() {
 
 # Apply x86_32-specific configurations
 configure_x86_generic() {
-    if [ "${TARGET_SYSTEM}" == "x86/generic" ]; then
+    if [ "${ARCH_3}" == "i386_pentium4" ]; then
         log "INFO" "Applying x86_generic specific configurations"
         # Disable ISO images generation
         sed -i "s/CONFIG_ISO_IMAGES=y/# CONFIG_ISO_IMAGES is not set/" .config
