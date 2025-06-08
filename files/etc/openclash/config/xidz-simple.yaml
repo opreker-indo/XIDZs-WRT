@@ -5,14 +5,21 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
   MIX:
     type: file
     path: ./proxy_provider/mix.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '240'
+      interval: '120'
+  CF-MIX:
+    type: file
+    path: ./proxy_provider/mix-lifetime.yaml
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: '120'
 proxy-groups:
 - name: AUTO-ID-MIX
   type: fallback
@@ -20,8 +27,9 @@ proxy-groups:
   use:
   - ID
   - MIX
+  - CF-MIX
   url: http://www.gstatic.com/generate_204
-  interval: '240'
+  interval: '120'
 - name: LB-MIX-ID
   type: load-balance
   strategy: consistent-hashing
@@ -29,8 +37,9 @@ proxy-groups:
   use:
   - MIX
   - ID
+  - CF-MIX
   url: http://www.gstatic.com/generate_204
-  interval: '240'
+  interval: '120'
 - name: SERVER-UMUM
   type: select
   disable-udp: false
@@ -87,12 +96,6 @@ rule-providers:
     type: file
     behavior: domain
     path: ./rule_provider/meta.yaml
-  Oisd_small:
-    type: http
-    behavior: classical
-    path: ./rule_provider/oisd_small.yaml
-    url: https://raw.githubusercontent.com/hillz2/openclash_adblock/main/oisd_small.yaml
-    interval: 28800 # Update rules every 8 hours
 rules:
 - RULE-SET,Umum,SERVER-UMUM
 - RULE-SET,Game,SERVER-GAME
@@ -102,7 +105,6 @@ rules:
 - RULE-SET,Bankid,SERVER-INDO
 - RULE-SET,Tiktok,SERVER-UMUM
 - RULE-SET,Meta,SERVER-INDO
-- RULE-SET,Oisd_small,BLOCK-IKLAN
 - MATCH,SERVER-UMUM
 dns:
   proxy-server-nameserver:
