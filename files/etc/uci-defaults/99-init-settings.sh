@@ -240,6 +240,7 @@ check_status "mv /usr/share/netdata/web/lib/jquery-3.6.0.min.js /usr/share/netda
 log_status "INFO" "Creating VnStat directory..."
 check_status "mkdir -p /etc/vnstat" "VnStat directory created"
 
+# Change Directory Database
 log_status "INFO" "Change Directory Database..."
 check_status "sed -i 's|var/lib/vnstat|etc/vnstat|g' /etc/vnstat.conf" "Change To /etc/vnstat"
 
