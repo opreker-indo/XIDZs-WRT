@@ -62,7 +62,7 @@ PACKAGES+=" internet-detector luci-app-internet-detector vnstat2 vnstati2 luci-a
 PACKAGES+=" tailscale luci-app-tailscale"
 
 # Bandwidth And Speedtest
-PACKAGES+=" speedtestcli luci-app-eqosplus"
+PACKAGES+=" speedtest-cli luci-app-eqosplus"
 
 # Theme
 PACKAGES+=" luci-theme-argon luci-theme-alpha luci-theme-material"
