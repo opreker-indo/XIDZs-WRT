@@ -31,7 +31,7 @@ packages_custom+=(
     "modeminfo-serial-xmm_|${REPOS[KIDDIN9]}"
     "modeminfo-serial-fibocom_|${REPOS[KIDDIN9]}"
     "modeminfo-serial-sierra_|${REPOS[KIDDIN9]}"
-    #"luci-app-mmconfig_|${REPOS[OPENWRTRU]}"
+    "luci-app-mmconfig_|${REPOS[OPENWRTRU]}"
     
     "atinout_|${REPOS[KIDDIN9]}"
     "luci-app-diskman_|${REPOS[KIDDIN9]}"
