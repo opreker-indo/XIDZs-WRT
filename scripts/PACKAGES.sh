@@ -70,6 +70,7 @@ packages_custom+=(
     "luci-app-ipinfo_|https://api.github.com/repos/bobbyunknown/luci-app-ipinfo/releases/latest"
     "luci-app-netmonitor_|https://api.github.com/repos/de-quenx/luci-app-netmonitor/releases/latest"
     "luci-theme-argon_|https://api.github.com/repos/de-quenx/luci-theme-argon/releases/latest"
+    "luci-theme-rtawrt_|https://api.github.com/repos/de-quenx/luci-theme-rtawrt/releases/latest"
 )
 
 if [[ "${TYPE}" == "OPHUB" || "${TYPE}" == "ULO" ]]; then

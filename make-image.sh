@@ -23,10 +23,10 @@ luci-mod-admin-full luci-lib-ip luci-compat luci-ssl"
 # USB + LAN Networking Drivers And Modem Tools
 PACKAGES+=" kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 kmod-usb-net-asix kmod-usb-net-asix-ax88179"
 PACKAGES+=" kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-cdc-ncm kmod-usb-net-sierrawireless \
-kmod-usb-net-qmi-wwan uqmi luci-proto-qmi kmod-usb-acm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-mbim umbim \
+kmod-usb-net-qmi-wwan uqmi kmod-usb-acm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-mbim umbim \
 kmod-usb-serial-option kmod-usb-serial kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-serial-sierrawireless modemmanager luci-proto-modemmanager \
-mbim-utils qmi-utils usbutils luci-proto-ncm kmod-usb-uhci kmod-usb-ohci kmod-usb2 kmod-usb3 \
-usb-modeswitch xmm-modem luci-proto-xmm kmod-nls-utf8 kmod-macvlan"
+mbim-utils qmi-utils kmod-usb-uhci kmod-usb-ohci kmod-usb2 kmod-usb3 usb-modeswitch usbutils \
+luci-proto-qmi luci-proto-ncm xmm-modem luci-proto-xmm kmod-nls-utf8 kmod-macvlan"
 
 # Modem Management Tools
 PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband sms-tool luci-app-sms-tool-js picocom minicom"
@@ -69,7 +69,7 @@ PACKAGES+=" tailscale luci-app-tailscale"
 PACKAGES+=" speedtest-cli luci-app-eqosplus"
 
 # Theme + UI
-PACKAGES+=" luci-theme-material luci-theme-argon"  #luci-theme-alpha4"
+PACKAGES+=" luci-theme-rtawrt luci-theme-argon"  #luci-theme-alpha4"
 
 # PHP8
 PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"

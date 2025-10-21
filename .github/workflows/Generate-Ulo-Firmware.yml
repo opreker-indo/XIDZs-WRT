@@ -182,16 +182,6 @@ jobs:
             - **H6**: Orange Pi 3, Orange Pi 3 LTS
             - **H616**: Orange Pi Zero2
             - **H618**: Orange Pi Zero3
-            ## FEATURES
-            - Tema Alpha ⨯ Tema Argon ⨯ Tema Material
-            - Amlogic Service ⨯ Droidnet
-            - 3ginfo-Lite ⨯ Modeminfo ⨯ IP Information
-            - FIX TTL ⨯ Tailscale
-            - Eqosplus ⨯ Mactodong
-            - Internet Detector ⨯ Connection Monitor
-            - Support Modem Rakitan ⨯ Auto Reconnect
-            - Auto Time Sync ⨯ File Manager
-            - Config Openclash ⨯ Nikki ⨯ Passwall
             ## TUNNEL OPTIONS
             - OpenClash
             - OpenClash + Nikki

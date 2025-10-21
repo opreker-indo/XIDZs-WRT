@@ -48,12 +48,6 @@ proxy-groups:
   proxies:
   - AUTO-ID-MIX
   - DIRECT
-- name: PORT-GAME
-  type: select
-  disable-udp: false
-  proxies:
-  - DIRECT
-  - AUTO-ID-MIX
 - name: BLOCK-IKLAN
   type: select
   disable-udp: false
@@ -65,23 +59,15 @@ rule-providers:
     type: file
     behavior: classical
     path: "./rule_provider/game.yaml"
-  PortGames:
+  PortGame:
     type: file
     behavior: classical
-    path: "./rule_provider/portgames.yaml"
-  PortTcp:
-    type: file
-    behavior: classical
-    path: "./rule_provider/PortTCP.yaml"
-  PortUdp:
-    type: file
-    behavior: classical
-    path: "./rule_provider/PortUDP.yaml"
+    path: "./rule_provider/portgame.yaml"
   Umum:
     type: file
     behavior: classical
     path: "./rule_provider/umum.yaml"
-  Indo:
+  indo:
     type: file
     behavior: classical
     path: "./rule_provider/indo.yaml"
@@ -108,10 +94,8 @@ rule-providers:
 rules:
 - RULE-SET,Umum,SERVER-UMUM
 - RULE-SET,Game,SERVER-GAME
-- RULE-SET,PortGames,PORT-GAME
-- RULE-SET,PortTcp,PORT-GAME
-- RULE-SET,PortUdp,PORT-GAME
-- RULE-SET,Indo,SERVER-INDO
+- RULE-SET,PortGame,SERVER-GAME
+- RULE-SET,indo,SERVER-INDO
 - RULE-SET,Sosmed,SERVER-INDO
 - RULE-SET,Streaming,SERVER-UMUM
 - RULE-SET,Bankid,SERVER-INDO
@@ -129,11 +113,11 @@ dns:
   nameserver:
     - 1.1.1.1
     - 8.8.8.8
-    - 1.0.0.1
-  fallback:
     - 9.9.9.9
+  fallback:
+    - 1.0.0.1
+    - 8.8.4.4
     - 149.112.112.112
-    - 208.67.222.222
 ntp:
   servers:
     - pool.ntp.org

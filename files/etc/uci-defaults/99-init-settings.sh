@@ -25,11 +25,13 @@ INDOWRT_SH="/root/indowrt.sh"
 OCPATCH_SH="/root/ocpatch.sh"
 CLASH_META="/etc/openclash/core/clash_meta"
 COUNTRY_MMDB="/etc/openclash/Country.mmdb"
-NIKKIX_SH="/root/nikki-x.sh"
 PHP_INI="/etc/php.ini"
 PHP_INI_BAK="/etc/php.ini.bak"
 VNSTAT_CONF="/etc/vnstat.conf"
-PLUG_USB="/etc/hotplug.d/usb/23-wwan_modem"
+PLUG_USB="/etc/hotplug.d/usb/23-wwan-modem"
+HAT_WIFI="/etc/hotplug.d/usb/99-wifi-hat"
+ARGON_CONF="/usr/share/ucode/luci/template/themes/argon/header.ut"
+RTA_CONF="/usr/lib/lua/luci/view/themes/rtawrt/header.htm"
 
 # logging dengan status
 log_status() {
@@ -48,7 +50,7 @@ log_status "INFO" "========================================="
 
 # modify firmware display
 log_status "INFO" "Modifying firmware display..."
-sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By xidz_x | fidz':''),#g" "$SYSTEM_JS"
+sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By fidz':''),#g" "$SYSTEM_JS"
 sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' "$PORTS_JS"
 mv "$PORTS_JS" "$NEW_PORTS_JS"
 
@@ -57,6 +59,7 @@ log_status "INFO" "sett permission directory..."
 chmod -R +x /sbin /usr/bin /etc/init.d
 chmod +x "$MM_REPORT"
 chmod +x "$PLUG_USB"
+chmod +x "$HAT_WIFI"
 
 # check system release
 log_status "INFO" "Checking system release..."
@@ -216,7 +219,8 @@ fi
 # setup misc settings
 log_status "INFO" "Setting up misc configurations..."
 sed -i -e 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' -e 's/\[ -n \"\$FAILSAFE\" \] && cat \/etc\/banner.failsafe/& || \/usr\/bin\/xyyraa/' "$PROFILE"
-sed -i '11c\DatabaseDir "/etc/vnstat"' "$VNSTAT_CONF"
+rm -rf /etc/hotplug.d/usb/25-modemmanager-usb
+/etc/init.d/issue enable > /dev/null
 
 # run install2 script
 log_status "INFO" "Running install2 script..."
@@ -232,10 +236,6 @@ chmod +x "$RULES_SH"
 log_status "INFO" "Running TTL script..."
 chmod +x "$INDOWRT_SH"
 "$INDOWRT_SH"
-
-# setup enable services
-log_status "INFO" "Enabling services..."
-/etc/init.d/issue enable > /dev/null
 
 # checking and setup tunnel
 log_status "INFO" "Checking tunnel applications..."
@@ -263,36 +263,31 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
                 ln -sf /etc/openclash/history/quenx.db /etc/openclash/cache.db
                 ln -sf /etc/openclash/core/clash_meta /etc/openclash/clash
                 
-                rm -f /etc/config/openclash
-                rm -rf /etc/openclash/custom /etc/openclash/game_rules
-                find /etc/openclash/rule_provider -type f ! -name '*.yaml' -exec rm -f {} \;
-                
+                rm -f /etc/config/openclash    
                 mv /etc/config/openclash1 /etc/config/openclash
+                
+                sed -i '103,105s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '144s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
                 
             luci-app-nikki)
-                log_status "INFO" "Configuring Nikki..."
-                
-                rm -rf /etc/nikki/run/providers
+                log_status "INFO" "Configuring Nikki..."                
                 chmod +x /etc/nikki/run/Geo*
-                
-                log_status "INFO" "Adding config editor for Nikki..."
-                if [ -f "$NIKKIX_SH" ]; then
-                    chmod +x "$NIKKIX_SH"
-                    "$NIKKIX_SH"
-                    log_status "INFO" "Nikki config editor applied successfully"
-                else
-                    log_status "WARNING" "nikki-x.sh not found, skipping config editor"
-                fi
+                rm -rf /etc/nikki/run/proxy_provider
+                rm -rf /etc/nikki/run/rule_provider
                 
                 log_status "INFO" "Creating symlinks from OpenClash to Nikki..."
                 ln -sf /etc/openclash/proxy_provider /etc/nikki/run
-                ln -sf /etc/openclash/rule_provider /etc/nikki/run 
+                ln -sf /etc/openclash/rule_provider /etc/nikki/run
+                
+                sed -i '115,117s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '146s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
                 
             luci-app-passwall)
                 log_status "INFO" "Configuring Passwall..."
-                
+                sed -i '112,114s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '147s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
         esac
         
@@ -303,14 +298,23 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
             luci-app-openclash)
                 rm -f /etc/config/openclash1
                 rm -rf /etc/openclash
+                
+                sed -i '118,120s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '149s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
                 
             luci-app-nikki)
-                rm -rf /etc/config/nikki /etc/nikki
+                rm -rf /etc/nikki
+                
+                sed -i '121,123s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '150s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
                 
             luci-app-passwall)
                 rm -f /etc/config/passwall
+                
+                sed -i '124,126s/.*/<\!-- & -->/' "$RTA_CONF"
+                sed -i '151s/.*/<\!-- & -->/' "$ARGON_CONF"
                 ;;
         esac
     fi

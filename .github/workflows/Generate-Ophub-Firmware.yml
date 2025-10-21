@@ -219,18 +219,6 @@ jobs:
             - **RK3318**: RK3318-BOX
             - **RK3399**: King3399
                         
-            ## FEATURES
-            - Tema Alpha ⨯ Tema Argon ⨯ Tema Material
-            - Amlogic Service ⨯ Droidnet
-            - 3ginfo-Lite ⨯ Modeminfo ⨯ IP Information
-            - FIX TTL ⨯ Tailscale
-            - Eqosplus ⨯ Mactodong
-            - GPIO LED Support
-            - MOD-SDCARD Support
-            - Internet Detector ⨯ Connection Monitor
-            - Support Modem Rakitan ⨯ Auto Reconnect
-            - Auto Time Sync ⨯ File Manager
-            - Configurasi Openclash ⨯ Nikki ⨯ Passwall
             ## TUNNEL OPTIONS
             - OpenClash
             - OpenClash + Nikki

@@ -25,13 +25,6 @@ proxy-groups:
   proxies:
   - SERVER-UMUM
   - DIRECT
-- name: PORT-GAME
-  type: select
-  disable-udp: false
-  proxies:
-  - DIRECT
-  - SERVER-UMUM
-  - SERVER-GAME
 - name: FB-IG-LINE
   type: select
   disable-udp: false
@@ -71,18 +64,10 @@ rule-providers:
     type: file
     behavior: classical
     path: "./rule_provider/game.yaml"
-  portgames:
+  portgame:
     type: file
     behavior: classical
-    path: "./rule_provider/portgames.yaml"
-  portTcp:
-    type: file
-    behavior: classical
-    path: "./rule_provider/PortTCP.yaml"
-  portUdp:
-    type: file
-    behavior: classical
-    path: "./rule_provider/PortUDP.yaml"
+    path: "./rule_provider/portgame.yaml"
   umum:
     type: file
     behavior: classical
@@ -130,9 +115,7 @@ rules:
 - RULE-SET,tiktok,TIKTOK
 - RULE-SET,umum,SERVER-UMUM
 - RULE-SET,game,SERVER-GAME
-- RULE-SET,portTcp,PORT-GAME
-- RULE-SET,portUdp,PORT-GAME
-- RULE-SET,portgames,PORT-GAME
+- RULE-SET,portgame,SERVER-GAME
 - RULE-SET,bankid,SERVER-UMUM
 - MATCH,SERVER-UMUM
 dns:
@@ -146,11 +129,11 @@ dns:
   nameserver:
     - 1.1.1.1
     - 8.8.8.8
-    - 1.0.0.1
-  fallback:
     - 9.9.9.9
+  fallback:
+    - 1.0.0.1
+    - 8.8.4.4
     - 149.112.112.112
-    - 208.67.222.222
 ntp:
   servers:
     - pool.ntp.org
