@@ -28,8 +28,8 @@ COUNTRY_MMDB="/etc/openclash/Country.mmdb"
 PHP_INI="/etc/php.ini"
 PHP_INI_BAK="/etc/php.ini.bak"
 VNSTAT_CONF="/etc/vnstat.conf"
-PLUG_USB="/etc/hotplug.d/usb/23-wwan-modem"
-HAT_WIFI="/etc/hotplug.d/usb/99-wifi-hat"
+PLUG_USB="/etc/hotplug.d/usb/23-wwan_modem"
+HAT_WIFI="/etc/hotplug.d/usb/99-wifi_hat"
 ARGON_CONF="/usr/share/ucode/luci/template/themes/argon/header.ut"
 RTA_CONF="/usr/lib/lua/luci/view/themes/rtawrt/header.htm"
 
@@ -50,7 +50,7 @@ log_status "INFO" "========================================="
 
 # modify firmware display
 log_status "INFO" "Modifying firmware display..."
-sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By fidz':''),#g" "$SYSTEM_JS"
+sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' ⛒ ⛌idz_⛌':''),#g" "$SYSTEM_JS"
 sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' "$PORTS_JS"
 mv "$PORTS_JS" "$NEW_PORTS_JS"
 
@@ -117,13 +117,6 @@ uci commit network
 log_status "INFO" "Configuring firewall..."
 uci set firewall.@zone[1].network='tethering modem mm'
 uci commit firewall
-
-# disable ipv6 lan
-log_status "INFO" "Disabling IPv6 on LAN..."
-uci delete dhcp.lan.dhcpv6
-uci delete dhcp.lan.ra
-uci delete dhcp.lan.ndp
-uci commit dhcp
 
 # configure wireless device
 log_status "INFO" "Configuring wireless..."

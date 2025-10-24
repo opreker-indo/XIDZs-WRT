@@ -1,5 +1,5 @@
 <h3 align="center">OpenWrt | ImmortalWrt</h3>
-<h4 align="center">23.05.6 | 24.10.3</h4>
+<h4 align="center">23.05.6 | 24.10.4</h4>
 <p align="center"><em>ImageBuilder | UloBuilder</em></p>
 
 ---
@@ -20,7 +20,7 @@
 - **Tema Material** - Interface simple dan Smooth
 - **Tema Alpha** - Interface modern dan clean
 - **Tema Argon** - Theme elegant dengan design responsive
-- **Tema RTA-wrt** - Theme simple and moden
+- **Tema RTA-wrt** - Theme simple and modern
 
 ### Network & Connectivity
 - **3ginfo-Lite | Modeminfo** - Monitor informasi modem secara detail
@@ -63,7 +63,7 @@
 <small>
 <a href="https://de-quenx.github.io/XIDZsWRT">Download XIDZsWRT Firmware</a><br>
 <a href="https://github.com/de-quenx/XIDZs-WRT/blob/main/LICENSE">LICENSE</a><br>
-<a href="https://github.com/rizkikotet-dev/RTA-WRT">RTA-WrtBuilder By RizkiKotet-Dev</a><br>
+<a href="https://github.com/rizkikotet-dev/RTA-WRT">RTA-WrtBuilder By RizkiKotet-Dev [ pembuat script builder ]</a><br>
 <a href="https://github.com/frizkyiman/friWrt-MyWrtBuilder">friWrt-MyWrtBuilder By frizkyiman</a><br>
 <a href="https://github.com/Revincx/MyWrtBuilder">MyWrtBuilder By Revincx</a><br>
 <a href="https://github.com/armarchindo/ULO-Builder/blob/main/ulo">ULO Builder By DBAI</a><br>

@@ -1,16 +1,25 @@
 #!/bin/sh
 #
-# Hotplug script for WWAN modem configuration on HAT OPIZ
-# Manages USB path that frequently changes during boot/restart
+# Hotplug script for WWAN module configuration on HAT OPIZ
+# Function: Auto-configure USB path that changes on boot
 #
 # Support: EM7430, EM7455, LT4220, L850-GL, L860-GL, 
-#          DW5821e, T99W175, FM350-GL, RM50XX Series
-# CREDIT: MBAH WISNU
+#          DW5821e, T99W175, FM350-GL, RM50XX
+# Credit : MBAH WISNU
 # @lionware <lionware@siltesa.com>
 # February 2025
 #
 
-# Check if WWAN modem is detected
+# Check device is OrangePi Zero3
+if ! grep -q "OrangePi Zero3" /proc/device-tree/model 2>/dev/null; then
+    logger -t usb_wwan_hat "Not OrangePi Zero3, exit..."
+    exit 0
+fi
+
+# Debug (uncomment if needed)
+#logger -t usb_debug "ACTION: $ACTION, PRODUCT: $PRODUCT"
+
+# Check action and module VID
 if [[ "$ACTION" == "add" || "$ACTION" == "change" || "$ACTION" == "remove" ]] && \
    [[ "$(echo $PRODUCT | cut -d'/' -f1)" == "2cb7" || \
       "$(echo $PRODUCT | cut -d'/' -f1)" == "1199" || \
@@ -23,69 +32,21 @@ if [[ "$ACTION" == "add" || "$ACTION" == "change" || "$ACTION" == "remove" ]] &&
       "$(echo $PRODUCT | cut -d'/' -f1)" == "5c6" || \
       "$(echo $PRODUCT | cut -d'/' -f1)" == "e8d" ]]; then
       
-   # Get interface name based on protocol
+   # Get interface names
    mm_modemIface=$(uci show network | grep "proto='modemmanager'" | awk -F '.' '{print $2}')
    atc_modemIface=$(uci show network | grep "proto='atc'" | awk -F '.' '{print $2}')
    xmm_modemIface=$(uci show network | grep "proto='xmm'" | awk -F '.' '{print $2}')
    
-    # Auto-detect serial port based on VID:PID
-    auto_detect_port(){
-        local vid="$1"
-        local pid="$2"
-        local port_type="$3"  # ttyUSB or ttyACM
-        local detected_port=""
-        
-        # Find port matching VID:PID
-        for port in /dev/${port_type}*; do
-            if [ -e "$port" ]; then
-                local port_name=$(basename "$port")
-                local port_path="/sys/class/tty/${port_name}/device"
-                
-                if [ -d "$port_path" ]; then
-                    local device_vid=$(cat ${port_path}/../idVendor 2>/dev/null)
-                    local device_pid=$(cat ${port_path}/../idProduct 2>/dev/null)
-                    
-                    # Match VID and PID
-                    if [[ "$device_vid" == "$vid" && "$device_pid" == "$pid" ]]; then
-                        detected_port="$port"
-                        logger -t usb_wwan_hat "Port detected: $detected_port (${vid}:${pid})"
-                        break
-                    fi
-                fi
-            fi
-        done
-        
-        # Fallback: use first available port if not found
-        if [ -z "$detected_port" ]; then
-            detected_port=$(ls /dev/${port_type}* 2>/dev/null | head -n1)
-            logger -t usb_wwan_hat "Using default port: $detected_port"
-        fi
-        
-        echo "$detected_port"
-    }
-    
-    # Set serial port for various tools
+    # Set serial port
     set_port_serial(){
-        local port="$1"
-        
-        if [ -z "$port" ]; then
-            logger -t usb_wwan_hat "ERROR: Port not detected"
-            return 1
-        fi
-        
-        logger -t usb_wwan_hat "Setting port: $port"
-        
-        # Update tools configuration
-        uci set 3ginfo.@3ginfo[0].device="$port"
-        uci set atcommands.@atcommands[0].set_port="$port"
-        uci set modemband.@modemband[0].set_port="$port"
-        uci set modeminfo.@modeminfo[0].device="$port"
-        uci set sms_tool_js.@sms_tool_js[0].readport="$port"
-        uci set sms_tool_js.@sms_tool_js[0].sendport="$port"
-        uci set sms_tool_js.@sms_tool_js[0].ussdport="$port"
-        uci set sms_tool_js.@sms_tool_js[0].atport="$port"
-        
-        # Commit configuration
+        uci set 3ginfo.@3ginfo[0].device="$1"
+        uci set atcommands.@atcommands[0].set_port="$1"
+        uci set modemband.@modemband[0].set_port="$1"
+        uci set modeminfo.@modeminfo[0].device="$1"
+        uci set sms_tool_js.@sms_tool_js[0].readport="$1"
+        uci set sms_tool_js.@sms_tool_js[0].sendport="$1"
+        uci set sms_tool_js.@sms_tool_js[0].ussdport="$1"
+        uci set sms_tool_js.@sms_tool_js[0].atport="$1"
         uci -q commit 3ginfo
         uci -q commit atcommands
         uci -q commit modemband.@modemband[0]
@@ -93,146 +54,127 @@ if [[ "$ACTION" == "add" || "$ACTION" == "change" || "$ACTION" == "remove" ]] &&
         uci -q commit sms_tool_js
     }
     
-    # Set HAT LED OrangePi Zero3
+    # Set LED HAT
     set_led_hat(){ 
-        local device_model=$(cat /proc/device-tree/model 2>/dev/null | tr -d '\0')
-        
-        # Check device model
-        if [[ "$device_model" == "OrangePi Zero3" ]]; then
-            logger -t usb_wwan_hat "OrangePi Zero3 detected, configuring LED"
-            uci set system.@led[0].dev="$1"
-            uci -q commit system
-            service led restart
-        else
-            logger -t usb_wwan_hat "Not OrangePi Zero3, skipping"
-        fi
+        uci set system.@led[0].dev="$1"
+        uci -q commit system
+        service led restart
     }
     
-    # Set ATC protocol
+    # Enable proto ATC only
     set_proto_atc(){
         uci set network.atc.disabled="0"
+        uci set network.mm.disabled="1"
         uci set network.xmm.disabled="1"
-        uci set network.mm.disabled="0"
         uci -q commit network
                 
         if [[ "$(ifstatus $atc_modemIface | grep '"up":' | awk -F': ' '{print $2}' | tr -d ',')" == "false" ]]; then
-          logger -t usb_wwan_hat "Bringing up interface $atc_modemIface"
+          logger -t usb_wwan_hat "Bring up interface $atc_modemIface"
           ifdown $atc_modemIface
           sleep 1
           ifup $atc_modemIface
         fi
     }
     
-    # Set ModemManager protocol
+    # Enable proto MM only
     set_proto_mm(){
+        uci set network.atc.disabled="1"
         uci set network.mm.disabled="0"
         uci set network.xmm.disabled="1"
-        uci set network.atc.disabled="0"
         uci -q commit network
         
         if [[ "$(ifstatus $mm_modemIface | grep '"up":' | awk -F': ' '{print $2}' | tr -d ',')" == "false" ]]; then
-          logger -t usb_wwan_hat "Bringing up interface $mm_modemIface"
+          logger -t usb_wwan_hat "Bring up interface $mm_modemIface"
           ifup $mm_modemIface
         fi
     }
     
-    # Set XMM protocol
+    # Enable proto XMM only
     set_proto_xmm(){
-        uci set network.xmm.disabled="0"
+        uci set network.atc.disabled="1"
         uci set network.mm.disabled="1"
-        uci set network.atc.disabled="0"
+        uci set network.xmm.disabled="0"
         uci -q commit network
                 
         if [[ "$(ifstatus $xmm_modemIface | grep '"up":' | awk -F': ' '{print $2}' | tr -d ',')" == "false" ]]; then
-          logger -t usb_wwan_hat "Bringing up interface $xmm_modemIface"
+          logger -t usb_wwan_hat "Bring up interface $xmm_modemIface"
           ifup $xmm_modemIface
         fi
     }
     
-    # Setup modem based on VID
+    # Setup based on VID
     setup_wwan(){
         VID="$1"
-        PID="$(echo $PRODUCT | cut -d'/' -f2)"
     
         case "$VID" in
             "1199") # EM7430 / EM7455
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB1"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "2c7c") # RM5XX Series
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB2"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "3f0")  # LT4220
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB2"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "2cb7") # L850
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyACM")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyACM0"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "8087") # L860
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyACM")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyACM0"
                 set_led_hat "eth1"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_xmm
                 ;;
             "413c") # DW5821e
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB0"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
-            "1bc7") # LN940 (LT4220)
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+            "1bc7") # LN940
+                set_port_serial "/dev/ttyUSB0"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
-            "489")  # 
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+            "489")  # Foxconn
+                set_port_serial "/dev/ttyUSB0"
                 set_led_hat "wwan0"
                 sed -i 's/^# \(mm_log "info" .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^# \(mm_report_event .*\)/\1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "5c6")  # T99W175
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB3"
                 set_led_hat "wwan0"
-                # Bypass ModemManager looping bug
+                # Disable MM log (fix loop)
                 sed -i 's/^\(mm_log "info" .*\)/# \1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^\(mm_report_event .*\)/# \1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_mm
                 ;;
             "e8d")  # FM350-GL
-                detected_port=$(auto_detect_port "$VID" "$PID" "ttyUSB")
-                set_port_serial "$detected_port"
+                set_port_serial "/dev/ttyUSB4"
                 set_led_hat "eth1"
-                # Disable ModemManager for FM350
+                # Disable MM log
                 sed -i 's/^\(mm_log "info" .*\)/# \1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 sed -i 's/^\(mm_report_event .*\)/# \1/' /etc/hotplug.d/tty/25-modemmanager-tty
                 set_proto_atc
@@ -243,17 +185,17 @@ if [[ "$ACTION" == "add" || "$ACTION" == "change" || "$ACTION" == "remove" ]] &&
         esac
     }      
       
-    # Check status file, execute if not exists
+    # Run if status file doesn't exist
     if [[ ! -f /tmp/wwan_modem_hat.status ]]; then
         vid_wwan="$(echo $PRODUCT | cut -d'/' -f1)"
         device_path="/sys${DEVPATH}"
 
         if [ -n "$device_path" ]; then
-            logger -t usb_wwan_hat "Device detected, starting configuration"
+            logger -t usb_wwan_hat "Start device configuration"
             logger -t usb_wwan_hat "ACTION: $ACTION, PRODUCT: $PRODUCT"
-            logger -t usb_wwan_hat "Device path: ${device_path}"
+            logger -t usb_wwan_hat "Path: ${device_path}"
             
-            # Update USB modem path
+            # Update USB path
             uci set network."$mm_modemIface".device="$device_path"
             
             # Setup modem
@@ -265,9 +207,9 @@ if [[ "$ACTION" == "add" || "$ACTION" == "change" || "$ACTION" == "remove" ]] &&
         fi
     fi
     
-    # Remove status if device is unplugged
+    # Remove status on device removal
     if [[ -f /tmp/wwan_modem_hat.status && "$ACTION" == "remove" ]]; then
-        logger -t usb_wwan_hat "Device removed, clearing status"
+        logger -t usb_wwan_hat "Remove status"
         rm -f /tmp/wwan_modem_hat.status
     fi
 fi
