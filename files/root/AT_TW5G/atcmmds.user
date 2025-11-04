@@ -1,0 +1,60 @@
+T99-AT;AT
+T99-ATI;ATI
+T99-TEMP;AT^TEMP?
+T99-DEBUG;AT^DEBUG?
+T99-CA_INFO?;AT^CA_INFO?
+T99-COPS?;AT+COPS?
+T99-Get Active Band;AT^ABAND?
+T99-Check Neigh Cell;AT+VZWRSRP?
+T99-CGDCONT=1,"IP";AT+CGDCONT=1,"IP"
+T99-CGDCONT=1,"IPV4","internet";AT+CGDCONT=1,"IPV4","internet"
+T99-Lock LTE Only;AT^SLMODE=1,2
+T99-Lock LTE & 5GNR;AT^SLMODE=1,6
+T99-LOCK PCI 900 & 1800 ; AT^LTE_LOCK=256,3774,256,1325
+T99-Lock WCDMA, LTE & 5GNR;AT^SLMODE=1,7
+T99-Check NR Mode;AT^NR5G_MODE?
+T99-NR Mode NSA & SA;AT^NR5G_MODE=0
+T99-NR Mode NSA Only;AT^NR5G_MODE=1
+T99-NR Mode SA Only;AT^NR5G_MODE=2
+T99-Display Selected Band;AT^SLBAND?
+T99-Lock B1;AT^SLBAND=LTE,2,1
+T99-Lock B3;AT^SLBAND=LTE,2,3
+T99-Lock B8;AT^SLBAND=LTE,2,8
+T99-Lock B40;AT^SLBAND=LTE,2,40
+T99-Lock B1-3;AT^SLBAND=LTE,2,1,3
+T99-Lock B1-8;AT^SLBAND=LTE,2,1,8
+T99-Lock B1-40;AT^SLBAND=LTE,2,1,40
+T99-Lock B3-8;AT^SLBAND=LTE,2,3,8
+T99-Lock B3-40;AT^SLBAND=LTE,2,3,40
+T99-Lock B8-40;AT^SLBAND=LTE,2,8,40
+T99-Lock B1-3-8;AT^SLBAND=LTE,2,1,3,8
+T99-Lock B1-3-40;AT^SLBAND=LTE,2,1,3,40
+T99-Lock B1-8-40;AT^SLBAND=LTE,2,1,8,40
+T99-Lock B3-8-40;AT^SLBAND=LTE,2,3,8,40
+T99-Lock B1-3-8-40;AT^SLBAND=LTE,2,1,3,8,40
+T99-Lock NR n1;AT^SLBAND=NR5G,2,1
+T99-Lock NR n3;AT^SLBAND=NR5G,2,3
+T99-Lock NR n8;AT^SLBAND=NR5G,2,8
+T99-Lock NR n40;AT^SLBAND=NR5G,2,40
+T99-Lock NR n1-3;AT^SLBAND=NR5G,2,1,3
+T99-Lock NR n1-8;AT^SLBAND=NR5G,2,1,8
+T99-Lock NR n1-40;AT^SLBAND=NR5G,2,1,40
+T99-Lock NR n3-8;AT^SLBAND=NR5G,2,3,8
+T99-Lock NR n3-40;AT^SLBAND=NR5G,2,3,40
+T99-Lock NR n8-40;AT^SLBAND=NR5G,2,8,40
+T99-Lock NR n1-3-8;AT^SLBAND=NR5G,2,1,3,8
+T99-Lock NR n1-3-40;AT^SLBAND=NR5G,2,1,3,40
+T99-Lock NR n1-8-40;AT^SLBAND=NR5G,2,1,8,40
+T99-Lock NR n3-8-40;AT^SLBAND=NR5G,2,3,8,40
+T99-Lock NR n1-3-8-40;AT^SLBAND=NR5G,2,1,3,8,40
+T99-Reset Selected Band;AT^SLBAND
+T99-Check PCI Lock;AT^LTE_LOCK?
+T99-Lock PCI;AT^LTE_LOCK=PCI,EARFCN,PCI,EARFCN
+T99-Reset PCI Lock;AT^LTE_LOCK
+T99-check lte_feature_enable;at^efs="/nv/item_files/modem/lte/rrc/efs/lte_feature_enable"
+T99-check lte_feature_enable_Subscription01;at^efs="/nv/item_files/modem/lte/rrc/efs/lte_feature_enable_Subscription01"
+T99-lte_feature_enable;at^efs="/nv/item_files/modem/lte/rrc/efs/lte_feature_enable",32,"FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF"
+T99-lte_feature_enable_Subscription01;at^efs="/nv/item_files/modem/lte/rrc/efs/lte_feature_enable_Subscription01",32,"FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF"
+T99-Delete carrier_policy.xml;AT^EFS="/policyman/carrier_policy.xml",0
+T99-Delete policies.xml;AT^EFS="/policyman/policies.xml",0
+T99-Restart Modem;AT+CFUN=1,1
