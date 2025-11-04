@@ -25,7 +25,7 @@ PACKAGES+=" kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-c
 kmod-usb-net-huawei-cdc-ncm kmod-usb-acm kmod-usb-net-cdc-ncm luci-proto-ncm kmod-usb-ohci kmod-usb-net-qmi-wwan uqmi luci-proto-qmi \
 kmod-usb2 kmod-usb-ehci kmod-usb3 kmod-usb-net-cdc-mbim umbim kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-sierrawireless \
 kmod-usb-serial-wwan kmod-usb-serial-qualcomm modemmanager luci-proto-modemmanager qmi-utils mbim-utils \
-usb-modeswitch kmod-nls-utf8 usbutilskmod-macvlan xmm-modem luci-proto-xmm"
+usb-modeswitch kmod-nls-utf8 usbutils kmod-macvlan xmm-modem luci-proto-xmm"
 
 # Modem Management Tools
 PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband sms-tool luci-app-sms-tool-js picocom minicom"
