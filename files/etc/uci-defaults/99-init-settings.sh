@@ -32,6 +32,7 @@ declare_variables() {
     MM_TTY="/etc/hotplug.d/tty/25-modemmanager-tty"
     ARGON_CONF="/usr/share/ucode/luci/template/themes/argon/header.ut"
     RTA_CONF="/usr/lib/lua/luci/view/themes/rtawrt/header.htm"
+    ALPHA_CONF="/etc/config/alpha"
     K5_GPIO="/usr/bin/k5hgled"
     K6_GPIO="/usr/bin/k6hgled"
     X_GPIO="/usr/bin/x-gpioled"
@@ -44,8 +45,8 @@ declare_variables() {
     export RC_LOCAL CRONTAB_ROOT USB_MODE OPKG_CONF SYSINFO_SH PROFILE
     export INSTALL2_SH RULES_SH INDOWRT_SH CLASH_META COUNTRY_MMDB
     export PHP_INI PHP_INI_BAK VNSTAT_CONF HAT_WWAN HAT_WIFI MM_TTY
-    export ARGON_CONF RTA_CONF K5_GPIO K6_GPIO X_GPIO
-    export K5_GPIO_ON K6_GPIO_ON X_GPIO_ON
+    export ARGON_CONF RTA_CONF ALPHA_CONF K5_GPIO
+    export K6_GPIO X_GPIO K5_GPIO_ON K6_GPIO_ON X_GPIO_ON 
 }
 
 # Logging function with status
@@ -317,6 +318,7 @@ setup_tunnel_applications() {
                     
                     sed -i '103,105s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '144s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "88s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
                     
                 luci-app-nikki)
@@ -331,12 +333,14 @@ setup_tunnel_applications() {
                     
                     sed -i '115,117s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '146s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "40s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
                     
                 luci-app-passwall)
                     log_status "INFO" "Configuring Passwall..."
                     sed -i '112,114s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '147s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "72s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
             esac
             
@@ -350,6 +354,7 @@ setup_tunnel_applications() {
                     
                     sed -i '118,120s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '149s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "104s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
                     
                 luci-app-nikki)
@@ -357,6 +362,7 @@ setup_tunnel_applications() {
                     
                     sed -i '121,123s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '150s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "120s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
                     
                 luci-app-passwall)
@@ -364,6 +370,7 @@ setup_tunnel_applications() {
                     
                     sed -i '124,126s/.*/<\!-- & -->/' "$RTA_CONF"
                     sed -i '151s/.*/<\!-- & -->/' "$ARGON_CONF"
+                    sed -i "136s/'Enable'/'Disable'/" "$ALPHA_CONF"
                     ;;
             esac
         fi
