@@ -72,7 +72,7 @@ PACKAGES+=" tailscale luci-app-tailscale"
 PACKAGES+=" speedtest-cli luci-app-eqosplus"
 
 # Theme + UI
-PACKAGES+=" luci-theme-rtawrt luci-theme-argon"  #luci-theme-alpha4"
+PACKAGES+=" luci-theme-rtawrt luci-theme-argon luci-theme-alpha"
 
 # PHP8
 PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
