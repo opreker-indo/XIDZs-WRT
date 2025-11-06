@@ -39,14 +39,6 @@ declare_variables() {
     K5_GPIO_ON="/usr/bin/k5hgledon"
     K6_GPIO_ON="/usr/bin/k6hgledon"
     X_GPIO_ON="/usr/bin/x-gpioledon"
-    
-    # Export variables to make them accessible across all functions
-    export SYSTEM_JS PORTS_JS NEW_PORTS_JS RELEASE_FILE TTYD_JSON TEMP_JS NEW_TEMP_JS
-    export RC_LOCAL CRONTAB_ROOT USB_MODE OPKG_CONF SYSINFO_SH PROFILE
-    export INSTALL2_SH RULES_SH INDOWRT_SH CLASH_META COUNTRY_MMDB
-    export PHP_INI PHP_INI_BAK VNSTAT_CONF HAT_WWAN HAT_WIFI MM_TTY
-    export ARGON_CONF RTA_CONF ALPHA_CONF K5_GPIO
-    export K6_GPIO X_GPIO K5_GPIO_ON K6_GPIO_ON X_GPIO_ON 
 }
 
 # Logging function with status
