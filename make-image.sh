@@ -16,16 +16,18 @@ MISC=""
 EXCLUDED=""
 
 # Core system + Web Server + LuCI
-PACKAGES+=" libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty curl \
-wget-ssl parted losetup tar unzip uhttpd uhttpd-mod-ubus luci luci-base luci-mod-admin-full luci-lib-ip luci-compat luci-ssl"
+PACKAGES+=" libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
+curl wget-ssl parted losetup tar unzip uhttpd uhttpd-mod-ubus \
+luci luci-base luci-mod-admin-full luci-lib-ip luci-compat luci-ssl"
 
 # USB + LAN Networking Drivers
-PACKAGES+=" kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 kmod-usb-net-asix kmod-usb-net-asix-ax88179"
-PACKAGES+=" kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-sierrawireless kmod-usb-uhci \
-kmod-usb-net-huawei-cdc-ncm kmod-usb-acm kmod-usb-net-cdc-ncm luci-proto-ncm kmod-usb-ohci kmod-usb-net-qmi-wwan uqmi luci-proto-qmi \
-kmod-usb2 kmod-usb-ehci kmod-usb3 kmod-usb-net-cdc-mbim umbim kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-sierrawireless \
-kmod-usb-serial-wwan kmod-usb-serial-qualcomm modemmanager luci-proto-modemmanager qmi-utils mbim-utils \
-usb-modeswitch kmod-nls-utf8 usbutils kmod-macvlan xmm-modem luci-proto-xmm"
+PACKAGES+=" kmod-usb-uhci kmod-usb-ohci kmod-usb2 kmod-usb-ehci kmod-usb3 kmod-usb-xhci-hcd"
+PACKAGES+=" kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 kmod-usb-net-asix kmod-usb-net-asix-ax88179 \
+kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-qmi-wwan uqmi \
+kmod-usb-net-cdc-mbim umbim kmod-usb-net-sierrawireless kmod-usb-net-huawei-cdc-ncm kmod-usb-acm kmod-usb-net-cdc-ncm \
+kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-serial-sierrawireless \
+modemmanager luci-proto-modemmanager qmi-utils mbim-utils usbutils usb-modeswitch \
+luci-proto-ncm luci-proto-qmi kmod-nls-utf8 kmod-macvlan xmm-modem luci-proto-xmm"
 
 # Modem Management Tools
 PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband sms-tool luci-app-sms-tool-js picocom minicom"
