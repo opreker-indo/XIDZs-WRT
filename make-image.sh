@@ -21,13 +21,13 @@ curl wget-ssl parted losetup tar unzip uhttpd uhttpd-mod-ubus \
 luci luci-base luci-mod-admin-full luci-lib-ip luci-compat luci-ssl"
 
 # USB + LAN Networking Drivers
-PACKAGES+=" kmod-usb-uhci kmod-usb-ohci kmod-usb2 kmod-usb-ehci kmod-usb3 kmod-usb-xhci-hcd"
 PACKAGES+=" kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 kmod-usb-net-asix kmod-usb-net-asix-ax88179 \
-kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-qmi-wwan uqmi \
+kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-qmi-wwan uqmi luci-proto-qmi \
 kmod-usb-net-cdc-mbim umbim kmod-usb-net-sierrawireless kmod-usb-net-huawei-cdc-ncm kmod-usb-acm kmod-usb-net-cdc-ncm \
-kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-serial-sierrawireless \
-modemmanager luci-proto-modemmanager qmi-utils mbim-utils usbutils usb-modeswitch \
-luci-proto-ncm luci-proto-qmi kmod-nls-utf8 kmod-macvlan xmm-modem luci-proto-xmm"
+kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-sierrawireless kmod-usb-serial-wwan kmod-usb-serial-qualcomm \
+modemmanager luci-proto-modemmanager qmi-utils mbim-utils libqmi libmbim usbutils usb-modeswitch \
+luci-proto-ncm kmod-usb-uhci kmod-usb-ohci kmod-usb2 kmod-usb-ehci kmod-usb3 kmod-usb-xhci-hcd \
+kmod-nls-utf8 kmod-macvlan xmm-modem"
 
 # Modem Management Tools
 PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband sms-tool luci-app-sms-tool-js picocom minicom"
@@ -81,7 +81,7 @@ PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-
 
 # Misc Packages + Custom Packages
 MISC+=" zoneinfo-core zoneinfo-asia jq httping adb openssh-sftp-server zram-swap htop screen \
-lolcat atc-fib-l8x0_gl atc-fib-fm350_gl luci-proto-atc luci-app-mmconfig luci-app-droidnet luci-app-ipinfo \
+lolcat atc-fib-l8x0_gl atc-fib-fm350_gl luci-proto-atc luci-proto-xmm luci-app-mmconfig luci-app-droidnet luci-app-ipinfo \
 luci-app-lite-watchdog luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd luci-app-3ginfo-lite"
 
 # Profil Name
@@ -108,7 +108,7 @@ configure_profile_packages() {
 # Packages Base
 configure_release_packages() {
     if [[ "${BASE:-}" == "openwrt" ]]; then
-        MISC+=" wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211 luci-app-temp-status"
+        MISC+=" luci-app-temp-status wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211 luci-app-temp-status"
         EXCLUDED+=" -dnsmasq"
     elif [[ "${BASE:-}" == "immortalwrt" ]]; then
         MISC+=" wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211"
