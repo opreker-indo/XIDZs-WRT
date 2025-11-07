@@ -109,9 +109,11 @@ configure_profile_packages() {
 configure_release_packages() {
     if [[ "${BASE:-}" == "openwrt" ]]; then
         MISC+=" luci-app-temp-status wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211 luci-app-temp-status"
+        PACKAGES+=" dnsmasq-full"
         EXCLUDED+=" -dnsmasq"
     elif [[ "${BASE:-}" == "immortalwrt" ]]; then
         MISC+=" wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211"
+        PACKAGES+=" dnsmasq-full"
         EXCLUDED+=" -dnsmasq -cpusage -automount -libustream-openssl -default-settings-chn -luci-i18n-base-zh-cn"
         if [[ "${ARCH_2:-}" == "x86_64" ]]; then
             EXCLUDED+=" -kmod-usb-net-rtl8152-vendor"
