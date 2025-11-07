@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# Hotplug script for Wi-Fi module configuration on HAT OPIZ
-# Auto-configure USB path on OpenWrt when device boots or restarts
+# Hotplug Skrip ini digunakan untuk mengonfigurasi module Wi-Fi pada HAT OPIZ
+# Fungsi utamanya adalah mengonfigurasi path USB pada OpenWrt yang tertukar saat menyalakan atau reboot (restart) device.
 #
 # Support Device:
 #  * RTL8188CUS
@@ -11,22 +11,16 @@
 #
 # @lionware <lionware@siltesa.com>
 # Februari 2025
-# Credit Mbah Wisnu 
+# Credit Mbah Wisnu ( DBAI )
 # Distribusi dan penggunaan kode ini diperbolehkan digunakan di perangkat manapun dan dapat dimodifikasi, 
 # tetapi tanpa jaminan kode ini berjalan dengan baik di perangkat tersebut :v
 #
 # Wi-Fi HAT (USB Wi-Fi)
 #
-# Debug USB
+#Debug USB
 logger -t usb_debug_wlan "ACTION: $ACTION, PRODUCT: $PRODUCT"
-
-# Check OrangePi Zero3 device only
-if ! grep -q "OrangePi Zero3" /proc/device-tree/model 2>/dev/null; then
-    logger -t usb_wifi_hat "Not OrangePi Zero3, exiting"
-    exit 0
-fi
-
-# Check USB Wi-Fi device detection
+#
+# Periksa apakah ACTION == "add" atau "bind" dan dengan Vendor ID 0bda atau 2357
 if [[ "$ACTION" == "add" || "$ACTION" == "bind" ]] && \
    [[ "$(echo $PRODUCT | cut -d'/' -f1)" == "bda" || "$(echo $PRODUCT | cut -d'/' -f1)" == "2357" ]] && \
    [[ "$(echo $PRODUCT | cut -d'/' -f2)" == "8179" || \
@@ -34,39 +28,41 @@ if [[ "$ACTION" == "add" || "$ACTION" == "bind" ]] && \
       "$(echo $PRODUCT | cut -d'/' -f2)" == "8176" || \
       "$(echo $PRODUCT | cut -d'/' -f2)" == "818b" || \
       "$(echo $PRODUCT | cut -d'/' -f2)" == "010c" ]]; then
-      # Note: Remove leading zero from VID
-      # Example: 0bda becomes bda
-      # VID = -f1, PID = -f2
+      # Note: Jika ingin menambahkan VID dan terdapat angka nol (0) di depan, pastikan untuk menghapus angka nol tersebut.
+      # Contoh: 0bda menjadi bda
+      # VID = -f1
+      # PID = -f2
 
-    # Get USB device path
+    # Tampung path usb wifi dan hapus bagian /devices/
     device_path_wifi="${DEVPATH#/devices/}"
     
-    # Configure if path found
+    # Jika path perangkat ditemukan
     if [[ -n "$device_path_wifi" ]]; then
-        # Log configuration start
-        logger -t usb_wifi_hat "Device matched, configuring"
+        # Log event untuk debugging
+        logger -t usb_wifi_hat "Device matched, proceeding with configuration."
         logger -t usb_wifi_hat "ACTION: $ACTION, PRODUCT: $PRODUCT"
                 
-        # Remove radio2 if exists
+        # Periksa apakah radio2 ada, jika ada maka hapus
         if uci show wireless.radio2 &>/dev/null; then
             wifi down radio2
-            logger -t usb_wifi_hat "Deleting radio2"
+            logger -t usb_wifi_hat "Deleting wireless radio2"
             uci -q delete wireless.radio2
             uci -q delete wireless.default_radio2
+            #uci -q commit wireless
         fi
         
-        # Update Wi-Fi configuration
+        # Update path USB untuk modul WIFI
         uci set wireless.radio1.path="$device_path_wifi"
         uci set wireless.default_radio1.ieee80211w="2"
         uci -q commit wireless
         wifi up radio1
         
-        # Check radio1 status
+        # Mengambil status radio1
         status_radio1=$(wifi status | awk '/"radio1":/ {flag=1} flag && /"up":/ {gsub(",", "", $2); print $2; flag=0}')
         
-        # Activate if status is false
+        # Cek apakah statusnya false, jika ya, aktifkan wifi
         if [[ "$status_radio1" == false ]]; then
-            logger -t usb_wifi_hat "Activating wireless HAT"
+            logger -t usb_wifi_hat "Setting up wireless hat"
             wifi up radio1
             echo "OK" > /tmp/wifi_up.status
         fi
