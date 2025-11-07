@@ -315,6 +315,13 @@ download_packages() {
         fi
 
         local output_file="$download_dir/$(basename "$download_url")"
+        
+        # Skip if file already exists
+        if [[ -f "$output_file" ]]; then
+            log "INFO" "Package already exists, skipping: $(basename "$output_file")"
+            continue
+        fi
+        
         if ! download_file "$download_url" "$output_file"; then
             error_msg "Failed to download $filename"
         fi
