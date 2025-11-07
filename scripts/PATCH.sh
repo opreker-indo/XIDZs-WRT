@@ -13,19 +13,15 @@ init_environment() {
 
 # Apply distribution-specific patches
 apply_distro_patches() {
-    case "${BASE}" in
-        "openwrt")
-            log "INFO" "Applying OpenWrt specific patches"
-            ;;
-        "immortalwrt")
-            log "INFO" "Applying ImmortalWrt specific patches"
-            # Remove redundant default packages
-            sed -i "/luci-app-cpufreq/d" include/target.mk
-            ;;
-        *)
-            log "INFO" "Unknown distribution: ${BASE}"
-            ;;
-    esac
+    if [[ "${BASE}" == "openwrt" ]]; then
+        log "INFO" "Applying OpenWrt specific patches"
+    elif [[ "${BASE}" == "immortalwrt" ]]; then
+        log "INFO" "Applying ImmortalWrt specific patches"
+        # Remove redundant default packages
+        sed -i "/luci-app-cpufreq/d" include/target.mk
+    else
+        log "INFO" "Unknown distribution: ${BASE}"
+    fi
 }
 
 # Patch package signature checking
@@ -45,7 +41,7 @@ configure_partitions() {
     log "INFO" "Configuring partition sizes"
     # Set kernel and rootfs partition sizes
     sed -i "s/CONFIG_TARGET_KERNEL_PARTSIZE=.*/CONFIG_TARGET_KERNEL_PARTSIZE=128/" .config
-    sed -i "s/CONFIG_TARGET_ROOTFS_PARTSIZE=.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1024/" .config
+    sed -i "s/CONFIG_TARGET_ROOTFS_PARTSIZE=.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1280/" .config
 }
 
 # Apply Amlogic-specific configurations
@@ -56,15 +52,15 @@ configure_amlogic() {
         sed -i "s|CONFIG_TARGET_ROOTFS_SQUASHFS=.*|# CONFIG_TARGET_ROOTFS_SQUASHFS is not set|g" .config
         sed -i "s|CONFIG_TARGET_IMAGES_GZIP=.*|# CONFIG_TARGET_IMAGES_GZIP is not set|g" .config
     else
-        # Jika tipe lain, hanya tampilkan informasi
+        # For other types, just show information
         log "INFO" "system type: ${TYPE}"
     fi
 }
 
-# Apply x86_64-specific configurations
+# apply x86_64
 configure_x86_64() {
-    if [ "${ARCH_2}" == "x86_64" ]; then
-        log "INFO" "Applying x86_64-specific configurations"
+    if [[ "${ARCH_2}" == "x86_64" ]]; then
+        log "INFO" "Applying x86_64 configurations"
         # Disable ISO images generation
         sed -i "s/CONFIG_ISO_IMAGES=y/# CONFIG_ISO_IMAGES is not set/" .config
         # Disable VHDX images generation

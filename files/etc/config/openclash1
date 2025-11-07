@@ -8,7 +8,7 @@ config openclash 'config'
 	option dns_port '7874'
 	option enable '0'
 	option update '0'
-	option en_mode 'redir-host'
+	option en_mode 'redir-host-tun'
 	option auto_update '0'
 	option auto_update_time '0'
 	option cn_port '9090'
@@ -50,7 +50,7 @@ config openclash 'config'
 	option github_address_mod '0'
 	option urltest_address_mod '0'
 	option urltest_interval_mod '0'
-	option delay_start '5'
+	option delay_start '4'
 	option router_self_proxy '1'
 	option release_branch 'master'
 	option enable_meta_core '1'
@@ -76,9 +76,9 @@ config openclash 'config'
 	option auto_restart_week_time '1'
 	option auto_restart_day_time '0'
 	option restricted_mode '0'
-	option config_path '/etc/openclash/config/xidz-simple.yaml'
+	option config_path '/etc/openclash/config/quenx.yaml'
 	option proxy_dns_group 'Disable'
-	option keep_alive_interval '15'
+	option keep_alive_interval '30'
 	option find_process_mode '0'
 	option global_client_fingerprint '0'
 	option geodata_loader '0'
@@ -103,112 +103,52 @@ config dns_servers
 	option group 'nameserver'
 
 config dns_servers
+	option type 'tcp'
+	option ip '1.1.1.1'
+	option enabled '1'
+	option group 'nameserver'
+
+config dns_servers
 	option type 'udp'
 	option ip '1.0.0.1'
 	option enabled '1'
 	option group 'nameserver'
+
+config dns_servers
+	option type 'tcp'
+	option ip '1.0.0.1'
+	option enabled '1'
+	option group 'nameserver'
+
+config dns_servers
+	option type 'udp'
+	option ip '8.8.8.8'
+	option enabled '1'
+	option group 'nameserver'
+
+config dns_servers
+	option type 'tcp'
+	option ip '8.8.8.8'
+	option enabled '1'
+	option group 'nameserver'
+
+config dns_servers
+	option type 'udp'
+	option ip '9.9.9.9'
+	option enabled '1'
+	option group 'fallback'
+
+config dns_servers
+	option type 'udp'
+	option ip '149.112.112.112'
+	option enabled '1'
+	option group 'fallback'
 
 config dns_servers
 	option type 'udp'
 	option ip '208.67.222.222'
 	option enabled '1'
-	option group 'nameserver'
-
-config dns_servers
-	option type 'udp'
-	option ip '208.67.220.220'
-	option enabled '1'
-	option group 'nameserver'
-
-config dns_servers
-	option type 'udp'
-	option ip '8.8.8.8'
-	option enabled '1'
 	option group 'fallback'
-
-config dns_servers
-	option type 'udp'
-	option ip '8.8.4.4'
-	option enabled '1'
-	option group 'fallback'
-
-config dns_servers
-	option type 'udp'
-	option ip '208.67.222.220'
-	option enabled '1'
-	option group 'fallback'
-
-config dns_servers
-	option type 'udp'
-	option ip '208.67.220.222'
-	option enabled '1'
-	option group 'fallback'
-
-config dns_servers
-	option type 'udp'
-	option ip '1.1.1.1'
-	option enabled '0'
-	option group 'default'
-
-config dns_servers
-	option type 'udp'
-	option ip '1.0.0.1'
-	option enabled '0'
-	option group 'default'
-
-config dns_servers
-	option group 'nameserver'
-	option type 'tcp'
-	option ip '1.1.1.1'
-	option enabled '0'
-
-config dns_servers
-	option type 'udp'
-	option ip '8.8.8.8'
-	option enabled '0'
-	option group 'default'
-
-config dns_servers
-	option group 'nameserver'
-	option type 'tls'
-	option ip 'one.one.one.one'
-	option enabled '0'
-
-config dns_servers
-	option group 'nameserver'
-	option type 'tls'
-	option ip 'dns.google'
-	option enabled '0'
-
-config dns_servers
-	option type 'https'
-	option ip 'dns.google/dns-query'
-	option group 'nameserver'
-	option enabled '0'
-
-config dns_servers
-	option type 'https'
-	option ip 'dns.alidns.com/dns-query'
-	option group 'nameserver'
-	option enabled '0'
-
-config dns_servers
-	option type 'tcp'
-	option group 'fallback'
-	option ip '1.0.0.1'
-	option enabled '0'
-
-config dns_servers
-	option group 'fallback'
-	option ip 'one.one.one.one'
-	option type 'tls'
-	option enabled '0'
-
-config dns_servers
-	option group 'fallback'
-	option type 'udp'
-	option ip '8.8.4.4'
-	option enabled '0'
 
 config dns_servers
 	option group 'fallback'
@@ -329,3 +269,12 @@ config dns_servers
 	option ip '8.8.4.4'
 	option interface 'Disable'
 	option node_resolve '0'
+
+config config_overwrite
+	option name 'default'
+	option enable '0'
+	option url 'https://raw.githubusercontent.com/vernesong/OpenClash/refs/heads/dev/luci-app-openclash/root/etc/openclash/overwrite/default'
+	option update_days 'off'
+	option update_hour 'off'
+	option type 'http'
+	option order '1'

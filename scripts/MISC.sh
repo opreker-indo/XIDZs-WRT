@@ -16,7 +16,6 @@ setup_base_config() {
     case "${BASE}" in
         "openwrt")
             log "INFO" "Configuring OpenWrt specific settings"
-            sed -i '/# setup misc settings/ a\mv \/www\/luci-static\/resources\/view\/status\/include\/29_temp.js \/www\/luci-static\/resources\/view\/status\/include\/17_temp.js' files/etc/uci-defaults/99-init-settings.sh
             ;;
         "immortalwrt")
             log "INFO" "Configuring ImmortalWrt specific settings"
@@ -63,26 +62,7 @@ configure_amlogic_permissions() {
     case "${TYPE}" in
     "OPHUB" | "ULO")
         log "INFO" "Setting up Amlogic file permissions"
-        local netifd_files=(
-            "/lib/netifd/proto/3g.sh"
-            "/lib/netifd/proto/dhcp.sh"
-            "/lib/netifd/proto/dhcpv6.sh"
-            "/lib/netifd/proto/ncm.sh"
-            "/lib/netifd/proto/wwan.sh"
-            "/lib/netifd/wireless/mac80211.sh"
-            "/lib/netifd/dhcp-get-server.sh"
-            "/lib/netifd/dhcp.script"
-            "/lib/netifd/dhcpv6.script"
-            "/lib/netifd/hostapd.sh"
-            "/lib/netifd/netifd-proto.sh"
-            "/lib/netifd/netifd-wireless.sh"
-            "/lib/netifd/utils.sh"
-            "/lib/wifi/mac80211.sh"
-        )
-        
-        for file in "${netifd_files[@]}"; do
-            sed -i "/# setup misc settings/ a\chmod +x $file" files/etc/uci-defaults/99-init-settings.sh
-        done
+        sed -i '/chmod -R +x \/sbin \/usr\/bin \/etc\/init.d/i\find /lib/netifd /lib/wifi -type f ! -name "*.bak" -exec chmod +x {} \\;' files/etc/uci-defaults/99-init-settings.sh
         ;;
     *)
         log "INFO" "Removing lib directory for non-Amlogic build"
@@ -97,6 +77,8 @@ download_custom_scripts() {
     
     local scripts=(
         "https://raw.githubusercontent.com/frizkyiman/fix-read-only/main/install2.sh|files/root"
+        "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/indowrt.sh|files/root"
+        "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/rules.sh|files/root"
     )
     
     for script in "${scripts[@]}"; do
@@ -105,7 +87,7 @@ download_custom_scripts() {
     done
 }
 
-# Main execution
+# Main exeution
 main() {
     init_environment
     setup_base_config

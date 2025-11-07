@@ -148,7 +148,7 @@ build_mod_sdcard() {
 
     local kernel
     kernel=$(grep -oP 'k[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9-]+)?' <<<"${file_name}")
-    local new_name="${OP_BASE}-${BRANCH}-${suffix}-${kernel}-${TUNNEL}-MODSDCARD-Build-By-Fidz_Xidz-X.img.gz"
+    local new_name="XIDZs-${OP_BASE}-${BRANCH}-${suffix}-${kernel}-${TUNNEL}-${DATE}-MODSDCARD.img.gz"
 
     mv "${file_name}.gz" "../${new_name}" || {
         error_msg "Failed to rename image file"
@@ -192,19 +192,19 @@ main() {
 
     # konfigurasi builds MATRIXTARGET
     local builds=()
-    if [[ "$MATRIXTARGET" == "Amlogic s905x HG680P" ]]; then
+    if [[ "$MATRIXTARGET" == "Amlogic s905x HG680P MODSDCARD" ]]; then
         builds=(
-            "_s905x_k5.15.184:meson-gxl-s905x-p212.dtb:HG680P"
-            "_s905x_k6.1.66:meson-gxl-s905x-p212.dtb:HG680P"
-            "_s905x_k6.6.89:meson-gxl-s905x-p212.dtb:HG680P"
-            "_s905x_k6.12.30:meson-gxl-s905x-p212.dtb:HG680P"
+            "_s905x_k5.15.196:meson-gxl-s905x-p212.dtb:s905x_HG680P-WIFION"
+            "_s905x_k6.1.158:meson-gxl-s905x-p212.dtb:s905x_HG680P-WIFION"
+            "_s905x_k6.6.116:meson-gxl-s905x-p212.dtb:s905x_HG680P-WIFION"
+            "_s905x_k6.12.39:meson-gxl-s905x-p212.dtb:s905x_HG680P-WIFION"
         )
-    elif [[ "$MATRIXTARGET" == "Amlogic s905x B860H" ]]; then
+    elif [[ "$MATRIXTARGET" == "Amlogic s905x B860H MODSDCARD" ]]; then
         builds=(
-            "_s905x-b860h_k5.15.184:meson-gxl-s905x-b860h.dtb:B860H"
-            "_s905x-b860h_k6.1.66:meson-gxl-s905x-b860h.dtb:B860H"
-            "_s905x-b860h_k6.6.89:meson-gxl-s905x-b860h.dtb:B860H"
-            "_s905x-b860h_k6.12.30:meson-gxl-s905x-b860h.dtb:B860H"
+            "_s905x-b860h_k5.15.196:meson-gxl-s905x-b860h.dtb:s905x_B860H-WIFION"
+            "_s905x-b860h_k6.1.158:meson-gxl-s905x-b860h.dtb:s905x_B860H-WIFION"
+            "_s905x-b860h_k6.6.116:meson-gxl-s905x-b860h.dtb:s905x_B860H-WIFION"
+            "_s905x-b860h_k6.12.39:meson-gxl-s905x-b860h.dtb:s905x_B860H-WIFION"
         )
     fi
     
