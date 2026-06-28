@@ -336,6 +336,10 @@ case "${TYPE}" in
         
         if [ "${MODSDCARD}" -eq 1 ]; then
             echo "Modifying SDCard..."
+            case "${DEVICE}" in
+                s905x-b860h-modsdcard) export MATRIXTARGET="Amlogic s905x B860H MODSDCARD" ;;
+                s905x-hg680p-modsdcard) export MATRIXTARGET="Amlogic s905x HG680P MODSDCARD" ;;
+            esac
             chmod +x shell/MODSDCARD.sh
             ./shell/MODSDCARD.sh
         fi
