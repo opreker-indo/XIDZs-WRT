@@ -89,6 +89,10 @@ main() {
     configure_partitions
     configure_amlogic
     configure_x86
+
+    # Enable parallel squashfs compression
+    sed -i "s/SQUASHFSOPT := -b \$(SQUASHFS_BLOCKSIZE)/SQUASHFSOPT := -b \$(SQUASHFS_BLOCKSIZE) -processors \$(shell nproc)/" include/image.mk
+
     log "INFO" "Builder patch completed successfully!"
 }
 

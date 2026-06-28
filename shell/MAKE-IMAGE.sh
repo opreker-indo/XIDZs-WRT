@@ -156,7 +156,7 @@ build_firmware() {
     configure_release_packages
 
     # PACKAGES + MISC + EXCLUDED + DISABLED_SERVICES    
-    make image PROFILE="$target_profile" \
+    make image -j$(nproc) PROFILE="$target_profile" \
                PACKAGES="$PACKAGES $MISC $EXCLUDED" \
                FILES="$build_files" \
                DISABLED_SERVICES="$DISABLED_SERVICES"
