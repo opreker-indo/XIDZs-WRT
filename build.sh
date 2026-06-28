@@ -13,9 +13,9 @@ Usage: $0 -t TYPE -b BRANCH -d DEVICE -v TUNNEL [-c]
 
 Options:
     -t TYPE       Build type: ophub, official, ulo
-    -b BRANCH     Release branch: openwrt:24.10.4, openwrt:23.05.6, immortalwrt:24.10.4, immortalwrt:23.05.6
+    -b BRANCH     Release branch: openwrt:24.10.5, openwrt:23.05.6, immortalwrt:24.10.5, immortalwrt:23.05.6
     -d DEVICE     Target device (see list below)
-    -v TUNNEL     Tunnel VPN: openclash, openclash-nikki, openclash-nikki-passwall, no-tunnel
+    -v TUNNEL     Tunnel VPN: openclash, openclash-nikki, openclash-fusiontunx, openclash-nikki-passwall, no-tunnel
     -c            Run 'make clean' before build (optional)
     -h            Show this help message
 
@@ -212,7 +212,7 @@ case "${TYPE}" in
 esac
 
 case "${TUNNEL}" in
-    openclash|openclash-nikki|openclash-nikki-passwall|no-tunnel) ;;
+    openclash|openclash-nikki|openclash-fusiontunx|openclash-nikki-passwall|openclash-passwall|no-tunnel) ;;
     *) echo "Error: Invalid tunnel option"; exit 1 ;;
 esac
 
@@ -226,9 +226,17 @@ DATE=$(date +'%d%m%Y')
 
 export TZ="Asia/Jakarta"
 export DEBIAN_FRONTEND=noninteractive
-export BASE VERSION VEROP TYPE TUNNEL DATE BRANCH
+export BASE VERSION VEROP TYPE TUNNEL DATE
+export BRANCH="${VERSION}"
 export WORKING_DIR="imagebuilder"
 export GITHUB_WORKSPACE="${BUILD_DIR}"
+
+# Set OP_BASE (capitalized name for firmware renaming)
+case "${BASE}" in
+    openwrt) export OP_BASE="OpenWrt" ;;
+    immortalwrt) export OP_BASE="ImmortalWrt" ;;
+    *) export OP_BASE="${BASE}" ;;
+esac
 
 # Clean PATH - remove relative paths and tilde paths
 CLEAN_PATH="$(echo "${PATH}" | tr ':' '\n' | grep -v '^\~' | grep -v '^\.' | tr '\n' ':' | sed 's/:$//')"
@@ -277,32 +285,32 @@ if [ ! -d "${BUILD_DIR}/imagebuilder" ]; then
     esac
 
     mv ./*-imagebuilder-* "${BUILD_DIR}/imagebuilder"
-    cp -r "${SCRIPT_DIR}/files" "${SCRIPT_DIR}/packages" "${SCRIPT_DIR}/scripts" "${SCRIPT_DIR}/make-image.sh" "${BUILD_DIR}/imagebuilder/"
+    cp -r "${SCRIPT_DIR}/files" "${SCRIPT_DIR}/packages" "${SCRIPT_DIR}/shell" "${BUILD_DIR}/imagebuilder/"
 else
     echo "Using existing ImageBuilder..."
-    cp -r "${SCRIPT_DIR}/files" "${SCRIPT_DIR}/packages" "${SCRIPT_DIR}/scripts" "${SCRIPT_DIR}/make-image.sh" "${BUILD_DIR}/imagebuilder/"
+    cp -r "${SCRIPT_DIR}/files" "${SCRIPT_DIR}/packages" "${SCRIPT_DIR}/shell" "${BUILD_DIR}/imagebuilder/"
 fi
 
 cd "${BUILD_DIR}/imagebuilder"
 
 echo "Downloading external packages..."
-chmod +x scripts/PACKAGES.sh
-./scripts/PACKAGES.sh "${CLEAN}"
+chmod +x shell/PACKAGES.sh
+./shell/PACKAGES.sh "${CLEAN}"
 
 echo "Applying patches..."
-chmod +x scripts/PATCH.sh
-./scripts/PATCH.sh
+chmod +x shell/PATCH.sh
+./shell/PATCH.sh
 
 echo "Applying customizations..."
-chmod +x scripts/MISC.sh
-./scripts/MISC.sh
+chmod +x shell/MISC.sh
+./shell/MISC.sh
 
 echo "Configuring tunnel..."
-chmod +x scripts/TUNNEL.sh
-./scripts/TUNNEL.sh "${TUNNEL}"
+chmod +x shell/TUNNEL.sh
+./shell/TUNNEL.sh "${TUNNEL}"
 
 mkdir -p compiled_images
-chmod +x make-image.sh
+chmod +x shell/MAKE-IMAGE.sh
 
 if [ "${CLEAN}" -eq 1 ]; then
     echo "Running make clean..."
@@ -310,7 +318,7 @@ if [ "${CLEAN}" -eq 1 ]; then
 fi
 
 echo "Building firmware..."
-./make-image.sh "${PROFILE}" "${TUNNEL}"
+./shell/MAKE-IMAGE.sh "${PROFILE}" "${TUNNEL}"
 
 case "${TYPE}" in
     ophub|ulo)
@@ -323,13 +331,13 @@ case "${TYPE}" in
         done
         
         echo "Repacking firmware..."
-        chmod +x scripts/REPACKWRT.sh
-        ./scripts/REPACKWRT.sh "${TYPE}" "${TARGET_BUILD}" "${KERNEL}" "${TUNNEL}"
+        chmod +x shell/REPACKWRT.sh
+        ./shell/REPACKWRT.sh "${TYPE}" "${TARGET_BUILD}" "${KERNEL}" "${TUNNEL}"
         
         if [ "${MODSDCARD}" -eq 1 ]; then
             echo "Modifying SDCard..."
-            chmod +x scripts/MODSDCARD.sh
-            ./scripts/MODSDCARD.sh
+            chmod +x shell/MODSDCARD.sh
+            ./shell/MODSDCARD.sh
         fi
         ;;
     official)
@@ -341,8 +349,8 @@ case "${TYPE}" in
 esac
 
 echo "Renaming firmware..."
-chmod +x scripts/RENAMEFW.sh
-./scripts/RENAMEFW.sh
+chmod +x shell/RENAMEFW.sh
+./shell/RENAMEFW.sh
 
 echo "=== Build Complete ==="
 echo "Output files:"
