@@ -70,7 +70,7 @@ setup_openclash() {
     ariadl "${openclash_core}" "files/etc/openclash/core/clash_meta.gz"
     
     log "INFO" "Configuring OpenClash Tunnel"
-    gzip -d "files/etc/openclash/core/clash_meta.gz" || error_msg "Error: Failed to extract clash_meta"
+    gzip -df "files/etc/openclash/core/clash_meta.gz" || error_msg "Error: Failed to extract clash_meta"
     chmod 755 "files/etc/openclash/core/clash_meta" || error_msg "Error: Failed to set permission for clash_meta"
     chmod 755 "files/etc/openclash/Country.mmdb" || error_msg "Error: Failed to set permission for Country.mmdb"
     chmod 755 "files/etc/openclash/GeoIP.dat" || error_msg "Error: Failed to set permission for GeoIP.dat"
