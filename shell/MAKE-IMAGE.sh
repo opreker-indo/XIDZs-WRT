@@ -27,7 +27,7 @@ PACKAGES+=" kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-c
 kmod-usb-net-qmi-wwan uqmi luci-proto-qmi kmod-usb-acm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-mbim umbim \
 kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-serial-sierrawireless \
 qmi-utils mbim-utils usbutils luci-proto-ncm kmod-usb-ohci kmod-usb-uhci \
-kmod-usb2 kmod-usb-ehci -kmod-usb3 kmod-nls-utf8 kmod-macvlan usb-modeswitch xmm-modem luci-proto-xmm"
+kmod-usb2 kmod-usb-ehci -kmod-usb3 kmod-nls-utf8 kmod-macvlan usb-modeswitch"
 EXCLUDED+=" -modemmanager luci-proto-modemmanager"
 
 # MODEM TOOLS
@@ -38,23 +38,15 @@ EXCLUDED+=" -modemmanager luci-proto-modemmanager"
 PACKAGES+=" kmod-usb-storage luci-app-diskman"
 
 # VPN TUNNEL
-OPENCLASH="coreutils-nohup ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy luci-app-openclash"
 NIKKI="nikki luci-app-nikki"
 FUSIONTUNX="fusiontunx luci-app-fusiontunx"
-NEKO="php8 php8-cgi kmod-tun bash curl jq ip-full ca-bundle sing-box mihomo luci-app-neko"
 PASSWALL="microsocks dns2socks dns2tcp ipt2socks tcping chinadns-ng xray-core xray-plugin naiveproxy trojan-plus tuic-client luci-app-passwall"
 
 add_tunnel_packages() {
     local option="$1"
     case "$option" in
-        openclash)
-            PACKAGES+=" $OPENCLASH"
-            ;;
         nikki)
             PACKAGES+=" $NIKKI"
-            ;;
-        neko)
-            PACKAGES+=" $NEKO"
             ;;
         fusiontunx)
             PACKAGES+=" $FUSIONTUNX"
@@ -67,18 +59,6 @@ add_tunnel_packages() {
             ;;
         nikki-fusiontunx)
             PACKAGES+=" $NIKKI $FUSIONTUNX"
-            ;;
-        openclash-nikki)
-            PACKAGES+=" $OPENCLASH $NIKKI"
-            ;;
-        openclash-passwall)
-            PACKAGES+=" $OPENCLASH $PASSWALL"
-            ;;
-        openclash-fusiontunx)
-            PACKAGES+=" $OPENCLASH $FUSIONTUNX"
-            ;;
-        openclash-nikki-passwall)
-            PACKAGES+=" $OPENCLASH $NIKKI $PASSWALL"
             ;;
         *)
             # No tunnel
@@ -96,9 +76,9 @@ PACKAGES+=" php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype 
 PACKAGES+=" luci-theme-argon" #luci-theme-alpha
 
 # MISC
-MISC+=" -atc-fib-l8x0_gl -atc-fib-fm350_gl -luci-proto-atc -luci-app-mmconfig -luci-app-3ginfo-lite luci-app-ttl -luci-app-droidnet \
-luci-app-mactodong -internet-detector -internet-detector-mod-modem-restart -luci-app-internet-detector -luci-app-ipinfo luci-app-eqosplus \
-ookla-speedtest luci-app-ttyd luci-app-tinyfm luci-app-ramfree luci-app-poweroffdevice -luci-app-lite-watchdog"
+MISC+=" -atc-fib-l8x0_gl -atc-fib-fm350_gl -luci-proto-atc -luci-app-mmconfig -luci-app-3ginfo-lite -luci-app-droidnet \
+-internet-detector -internet-detector-mod-modem-restart -luci-app-internet-detector -luci-app-ipinfo \
+luci-app-ttyd luci-app-tinyfilemanager -luci-app-lite-watchdog"
 
 # DISABLED SERVICES
 DISABLED_SERVICES="xidzs todong"
@@ -174,7 +154,7 @@ build_firmware() {
 if [ -z "${1:-}" ]; then
     echo "ERROR: Profile not specified."
     echo "Usage: $0 <profile> [tunnel_option]"
-    echo "Tunnel Options: openclash, nikki, fusiontunx, nikki-passwall, openclash-nikki, openclash-fusiontunx, openclash-nikki-passwall, no-tunnel"
+    echo "Tunnel Options: nikki, fusiontunx, passwall, nikki-passwall, nikki-fusiontunx, no-tunnel"
     exit 1
 fi
 

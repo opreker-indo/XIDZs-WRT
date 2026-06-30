@@ -185,14 +185,7 @@ check_dependencies() {
 
 # Get package extension based on OpenWrt version
 get_package_extension() {
-    local version="$1"
-    local major_version=$(echo "$version" | cut -d'.' -f1)
-    
-    if [[ "$major_version" -ge 25 ]]; then
-        echo "apk"
-    else
-        echo "ipk"
-    fi
+    echo "apk"
 }
 
 # Download with aria2c and retries

@@ -1,0 +1,744 @@
+=== Build Configuration ===
+Type: ophub
+Branch: 25.12.1 (openwrt 25.12.1)
+Device: s905x-hg680p
+Tunnel: nikki
+Clean: 1
+Build Dir: /tmp/openwrt-build
+==========================
+Cleaning build directory...
+Downloading ImageBuilder...
+Extracting archive...
+Running make clean...
+rm -rf /tmp/openwrt-build/imagebuilder/tmp /tmp/openwrt-build/imagebuilder/dl /tmp/openwrt-build/imagebuilder/build_dir/target-aarch64_generic_musl/root-armsr /tmp/openwrt-build/imagebuilder/bin/targets/armsr/armv8
+Downloading external packages...
+[[94m INFO [0m] All packages provided by fantastic-packages feeds
+[[94m INFO [0m] No custom package downloads required
+[[92m SUCCESS [0m] Package setup completed
+[?25hApplying patches...
+[[94m INFO [0m] Start Builder Patch!
+[[94m INFO [0m] Current Path: /tmp/openwrt-build/imagebuilder
+[[94m INFO [0m] Applying OpenWrt specific patches
+[[94m INFO [0m] Disabling package signature
+[[94m INFO [0m] Using repository file: repositories
+[[94m INFO [0m] Adding fantastic-packages APK feeds for aarch64_generic
+[[94m INFO [0m] Skipping Makefile force options (apk format)
+[[94m INFO [0m] Configuring partition sizes
+[[94m INFO [0m] System type: ophub
+[[94m INFO [0m] Builder patch completed successfully!
+[?25hApplying customizations...
+[[94m INFO [0m] Start Downloading Misc files and setup configuration!
+[[94m INFO [0m] Current Path: /tmp/openwrt-build/imagebuilder
+[[94m INFO [0m] Configuring OpenWrt specific settings
+[[94m INFO [0m] system type: ophub
+[[94m INFO [0m] Configuring for branch 25.x
+[[94m INFO [0m] Removing lib directory for non-Amlogic build
+[[94m INFO [0m] Setting permissions for non-Amlogic build
+[[94m INFO [0m] Permissions set for netifd proto files
+[[94m INFO [0m] Downloading custom scripts
+[[94m INFO [0m] Sett file permissions
+[[94m INFO [0m] Sett permissions for init.d files
+[[94m INFO [0m] Init.d permissions set successfully
+[[94m INFO [0m] Sett permissions for sbin files
+[[94m INFO [0m] Sbin permissions set successfully
+[[94m INFO [0m] Sett permissions for custom scripts
+[[94m INFO [0m] Custom scripts permissions set successfully
+[[94m INFO [0m] Sett permissions for config files
+[[94m INFO [0m] Config files permissions set successfully
+[[92m SUCCESS [0m] All custom configuration setup completed!
+[?25hConfiguring tunnel...
+[[94m INFO [0m] Packages to install: nikki
+[[94m INFO [0m] Downloading Nikki packages
+[[95m STEPS [0m] Aria2 Downloader
+[[94m INFO [0m] Downloading: https://github.com/syntax-xidz/nikki-x/releases/download/v1.25.1/nikki_aarch64_generic-openwrt-25.12.tar.gz (Attempt 1/5)
+[[92m SUCCESS [0m] Downloaded: nikki.tar.gz
+[[94m INFO [0m] Configuring Nikki Tunnel
+[[94m INFO [0m] Cleaning PassWall configuration files and folders
+[[94m INFO [0m] Cleaning fusiontunx configuration files and folders
+[[94m INFO [0m] Tunnel package installation completed successfully for: nikki
+[?25hGenerating package index...
+(cd /tmp/openwrt-build/imagebuilder/packages; IPKG_INSTROOT=/tmp/openwrt-build/imagebuilder/build_dir/target-aarch64_generic_musl/root-armsr /tmp/openwrt-build/imagebuilder/staging_dir/host/bin/fakeroot /tmp/openwrt-build/imagebuilder/staging_dir/host/bin/apk --root /tmp/openwrt-build/imagebuilder/build_dir/target-aarch64_generic_musl/root-armsr --keys-dir /tmp/openwrt-build/imagebuilder/keys --no-logfile --preserve-env --repositories-file /tmp/openwrt-build/imagebuilder/repositories --repository /tmp/openwrt-build/imagebuilder/packages/packages.adb --allow-untrusted --cache-dir /tmp/openwrt-build/imagebuilder/dl mkndx \
+	 \
+	--allow-untrusted --output packages.adb *.apk) >/dev/null 2>/dev/null || true
+Building firmware...
+Current Target: "armsr/armv8"
+Current Architecture: "aarch64"
+Current Revision: "r32768-b21cfa8f8c"
+Default Packages: base-files ca-bundle dropbear fstools libc libgcc libustream-mbedtls logd mtd netifd uci uclient-fetch urandom-seed urngd mkf2fs e2fsprogs blkid kmod-fs-vfat procd-ujail dnsmasq firewall4 nftables kmod-nft-offload odhcp6c odhcpd-ipv6only ppp ppp-mod-pppoe apk-mbedtls
+Available Profiles:
+
+generic:
+    Generic EFI Boot
+    Packages: kmod-amazon-ena kmod-e1000e kmod-vmxnet3 kmod-rtc-rx8025 kmod-i2c-mux-pca954x kmod-gpio-pca953x partx-utils kmod-wdt-sp805 kmod-mvneta kmod-mvpp2 kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-dwmac-imx kmod-fsl-fec kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-sfp kmod-atlantic kmod-bcmgenet kmod-octeontx2-net kmod-renesas-net-avb kmod-phy-realtek kmod-phy-smsc
+    hasImageMetadata: 1
+[[94m INFO [0m] Starting build for profile 'generic' [Tunnel: nikki]...
+Checking 'true'... ok.
+Checking 'false'... ok.
+Checking 'working-make'... ok.
+Checking 'case-sensitive-fs'... ok.
+Checking 'proper-umask'... ok.
+Checking 'perl-data-dumper'... ok.
+Checking 'perl-findbin'... ok.
+Checking 'perl-file-copy'... ok.
+Checking 'perl-file-compare'... ok.
+Checking 'perl-thread-queue'... ok.
+Checking 'perl-ipc-cmd'... ok.
+Checking 'tar'... ok.
+Checking 'find'... ok.
+Checking 'bash'... updated.
+Checking 'xargs'... ok.
+Checking 'patch'... ok.
+Checking 'diff'... ok.
+Checking 'cp'... ok.
+Checking 'seq'... ok.
+Checking 'awk'... ok.
+Checking 'grep'... updated.
+Checking 'egrep'... updated.
+Checking 'getopt'... ok.
+Checking 'realpath'... ok.
+Checking 'stat'... ok.
+Checking 'gzip'... updated.
+Checking 'unzip'... ok.
+Checking 'bzip2'... ok.
+Checking 'wget'... ok.
+Checking 'install'... ok.
+Checking 'perl'... ok.
+Checking 'python'... updated.
+Checking 'python3'... updated.
+Checking 'python3-distutils'... ok.
+Checking 'python3-stdlib'... ok.
+Checking 'file'... ok.
+Checking 'which'... ok.
+Checking 'ldconfig-stub'... ok.
+Building images for armsr - Generic EFI Boot
+Packages: dnsmasq-full libc block-mount zram-swap zoneinfo-core zoneinfo-asia bash screen uhttpd uhttpd-mod-ubus luci luci-ssl openssh-sftp-server adb curl wget-ssl httping htop jq tar unzip coreutils-base64 coreutils-sleep coreutils-stat kmod-usb-net-rtl8152 kmod-mii kmod-usb-net kmod-usb-wdm kmod-usb-net-rndis kmod-usb-net-cdc-ether kmod-usb-net-cdc-ncm kmod-usb-net-sierrawireless kmod-usb-net-qmi-wwan uqmi luci-proto-qmi kmod-usb-acm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-mbim umbim kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-serial-sierrawireless qmi-utils mbim-utils usbutils luci-proto-ncm kmod-usb-ohci kmod-usb-uhci kmod-usb2 kmod-usb-ehci kmod-nls-utf8 kmod-macvlan usb-modeswitch kmod-usb-storage luci-app-diskman php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring luci-theme-argon nikki luci-app-nikki luci-app-ttyd luci-app-tinyfilemanager wpad-openssl iw iwinfo wireless-regdb kmod-cfg80211 kmod-mac80211 luci-app-temp-status luci-proto-modemmanager apk-mbedtls base-files blkid ca-bundle dropbear e2fsprogs firewall4 fstools kernel kmod-amazon-ena kmod-atlantic kmod-bcmgenet kmod-dwmac-imx kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-e1000e kmod-fs-vfat kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-fsl-fec kmod-gpio-pca953x kmod-i2c-mux-pca954x kmod-mvneta kmod-mvpp2 kmod-nft-offload kmod-octeontx2-net kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-phy-realtek kmod-phy-smsc kmod-renesas-net-avb kmod-rtc-rx8025 kmod-sfp kmod-vmxnet3 kmod-wdt-sp805 libc libgcc libustream-mbedtls logd mkf2fs mtd netifd nftables odhcp6c odhcpd-ipv6only partx-utils ppp ppp-mod-pppoe procd-ujail uci uclient-fetch urandom-seed urngd "base-files=1696~b21cfa8f8c" "libc=1.2.5-r5" "kernel=6.12.74~b7d265defb2f518d9a2908a59aa22d7f-r1"
+
+OK: 0 B in 0 packages
+
+Installing packages...
+(  1/389) Installing libgcc1 (14.3.0-r5)
+(  2/389) Installing libc (1.2.5-r5)
+(  3/389) Installing libmbedtls21 (3.6.6-r2)
+(  4/389) Installing libpthread (1.2.5-r5)
+(  5/389) Installing zlib (1.3.1-r1)
+(  6/389) Installing adb (5.0.2~6fe92d1a-r4)
+(  7/389) Installing libubox20260213 (2026.06.19~7dd12784-r1)
+(  8/389) Installing libuclient20201210 (2026.06.07~daad21fa-r1)
+(  9/389) Installing uclient-fetch (2026.06.07~daad21fa-r1)
+( 10/389) Installing apk-mbedtls (3.0.5-r3)
+( 11/389) Installing busybox (1.37.0-r6)
+( 12/389) Installing libubus20251202 (2026.05.23~795b32bb-r2)
+( 13/389) Installing libuci20250120 (2025.12.02~66127cd7-r1)
+( 14/389) Installing libjson-c5 (0.18-r1)
+( 15/389) Installing libblobmsg-json20260213 (2026.06.19~7dd12784-r1)
+( 16/389) Installing ubusd (2026.05.23~795b32bb-r2)
+( 17/389) Installing ubus (2026.05.23~795b32bb-r2)
+( 18/389) Installing ubox (2025.10.30~6f78fa49-r1)
+( 19/389) Installing fstools (2026.02.15~8d377aa6-r1)
+( 20/389) Installing fwtool (2025.10.03~04cd252e-r1)
+( 21/389) Installing jsonfilter (2026.03.16~b9034210-r1)
+( 22/389) Installing jshn (2026.06.19~7dd12784-r1)
+( 23/389) Installing libnl-tiny1 (2025.12.02~40493a65-r1)
+( 24/389) Installing libudebug (2026.01.16~875e1a7a)
+( 25/389) Installing libucode20230711 (2026.01.16~85922056-r1)
+( 26/389) Installing ucode (2026.01.16~85922056-r1)
+( 27/389) Installing ucode-mod-fs (2026.01.16~85922056-r1)
+( 28/389) Installing ucode-mod-ubus (2026.01.16~85922056-r1)
+( 29/389) Installing ucode-mod-uci (2026.01.16~85922056-r1)
+( 30/389) Installing ucode-mod-uloop (2026.01.16~85922056-r1)
+( 31/389) Installing netifd (2026.02.26~cbb83a18-r1)
+( 32/389) Installing openwrt-keyring (2025.12.10~f0670054-r1)
+( 33/389) Installing libjson-script20260213 (2026.06.19~7dd12784-r1)
+( 34/389) Installing procd (2026.03.13~58eb263d-r1)
+( 35/389) Installing procd-seccomp (2026.03.13~58eb263d-r1)
+( 36/389) Installing usign (2025.10.03~c4c72b1b-r1)
+( 37/389) Installing base-files (1696~b21cfa8f8c)
+( 38/389) Installing terminfo (6.4-r3)
+( 39/389) Installing libncurses6 (6.4-r3)
+( 40/389) Installing libreadline8 (8.3-r1)
+( 41/389) Installing bash (5.3-r3)
+( 42/389) Installing librt (1.2.5-r5)
+( 43/389) Installing libuuid1 (2.41.5-r1)
+( 44/389) Installing libblkid1 (2.41.5-r1)
+( 45/389) Installing blkid (2.41.5-r1)
+( 46/389) Installing block-mount (2026.02.15~8d377aa6-r1)
+( 47/389) Installing ca-bundle (20260601-r1)
+( 48/389) Installing coreutils (9.9-r2)
+( 49/389) Installing coreutils-base64 (9.9-r2)
+( 50/389) Installing coreutils-sleep (9.9-r2)
+( 51/389) Installing coreutils-stat (9.9-r2)
+( 52/389) Installing libnghttp2-14 (1.66.0-r1)
+( 53/389) Installing libcurl4 (8.19.0-r2)
+( 54/389) Installing curl (8.19.0-r2)
+( 55/389) Installing kernel (6.12.74~b7d265defb2f518d9a2908a59aa22d7f-r1)
+( 56/389) Installing kmod-nf-conntrack (6.12.74-r1)
+( 57/389) Installing kmod-nfnetlink (6.12.74-r1)
+( 58/389) Installing kmod-nf-conntrack-netlink (6.12.74-r1)
+( 59/389) Installing libmnl0 (1.0.5-r1)
+( 60/389) Installing libnfnetlink0 (1.0.2-r1)
+( 61/389) Installing libnetfilter-conntrack3 (1.1.0-r1)
+( 62/389) Installing libgmp10 (6.3.0-r2)
+( 63/389) Installing libnettle8 (3.10.2-r1)
+( 64/389) Installing jansson4 (2.14.1-r1)
+( 65/389) Installing kmod-crypto-hash (6.12.74-r1)
+( 66/389) Installing kmod-crypto-crc32c (6.12.74-r1)
+( 67/389) Installing kmod-lib-crc32c (6.12.74-r1)
+( 68/389) Installing kmod-nf-conntrack6 (6.12.74-r1)
+( 69/389) Installing kmod-nf-log (6.12.74-r1)
+( 70/389) Installing kmod-nf-log6 (6.12.74-r1)
+( 71/389) Installing kmod-nf-nat (6.12.74-r1)
+( 72/389) Installing kmod-nf-reject (6.12.74-r1)
+( 73/389) Installing kmod-nf-reject6 (6.12.74-r1)
+( 74/389) Installing kmod-nft-core (6.12.74-r1)
+( 75/389) Installing libnftnl11 (1.3.1-r1)
+( 76/389) Installing nftables-json (1.1.6-r2)
+( 77/389) Installing dnsmasq-full (2.93-r1)
+( 78/389) Installing dropbear (2025.89-r1)
+( 79/389) Installing libe2p2 (1.47.3-r1)
+( 80/389) Installing libcomerr0 (1.47.3-r1)
+( 81/389) Installing libss2 (1.47.3-r1)
+( 82/389) Installing libext2fs2 (1.47.3-r1)
+( 83/389) Installing e2fsprogs (1.47.3-r1)
+( 84/389) Installing kmod-nft-fib (6.12.74-r1)
+( 85/389) Installing kmod-nft-nat (6.12.74-r1)
+( 86/389) Installing kmod-nf-flow (6.12.74-r1)
+( 87/389) Installing kmod-nft-offload (6.12.74-r1)
+( 88/389) Installing firewall4 (2025.03.17~b6e51575-r2)
+( 89/389) Installing htop (3.5.1-r1)
+( 90/389) Installing libopenssl3 (3.5.7-r1)
+( 91/389) Installing httping (3.5-r3)
+( 92/389) Installing iw (6.17-r1)
+( 93/389) Installing libiwinfo-data (2026.01.14~f5dd57a8-r1)
+( 94/389) Installing libiwinfo20230701 (2026.01.14~f5dd57a8-r1)
+( 95/389) Installing iwinfo (2026.01.14~f5dd57a8-r1)
+( 96/389) Installing jq (1.8.1-r2)
+( 97/389) Installing kmod-amazon-ena (6.12.74-r1)
+( 98/389) Installing kmod-i2c-core (6.12.74-r1)
+( 99/389) Installing kmod-hwmon-core (6.12.74-r1)
+(100/389) Installing kmod-crypto-null (6.12.74-r1)
+(101/389) Installing kmod-crypto-aead (6.12.74-r1)
+(102/389) Installing kmod-crypto-manager (6.12.74-r1)
+(103/389) Installing kmod-crypto-hmac (6.12.74-r1)
+(104/389) Installing kmod-crypto-sha3 (6.12.74-r1)
+(105/389) Installing kmod-crypto-sha512 (6.12.74-r1)
+(106/389) Installing kmod-crypto-rng (6.12.74-r1)
+(107/389) Installing kmod-crypto-geniv (6.12.74-r1)
+(108/389) Installing kmod-crypto-seqiv (6.12.74-r1)
+(109/389) Installing kmod-crypto-ctr (6.12.74-r1)
+(110/389) Installing kmod-crypto-gf128 (6.12.74-r1)
+(111/389) Installing kmod-crypto-ghash (6.12.74-r1)
+(112/389) Installing kmod-crypto-gcm (6.12.74-r1)
+(113/389) Installing kmod-macsec (6.12.74-r1)
+(114/389) Installing kmod-pps (6.12.74-r1)
+(115/389) Installing kmod-ptp (6.12.74-r1)
+(116/389) Installing kmod-atlantic (6.12.74-r1)
+(117/389) Installing kmod-libphy (6.12.74-r1)
+(118/389) Installing kmod-fixed-phy (6.12.74-r1)
+(119/389) Installing kmod-of-mdio (6.12.74-r1)
+(120/389) Installing kmod-mdio-bcm-unimac (6.12.74-r1)
+(121/389) Installing kmod-phylib-broadcom (6.12.74-r1)
+(122/389) Installing kmod-phy-bcm7xxx (6.12.74-r1)
+(123/389) Installing kmod-bcmgenet (6.12.74-r1)
+(124/389) Installing ucode-mod-digest (2026.01.16~85922056-r1)
+(125/389) Installing ucode-mod-nl80211 (2026.01.16~85922056-r1)
+(126/389) Installing ucode-mod-rtnl (2026.01.16~85922056-r1)
+(127/389) Installing wifi-scripts (1.0-r1)
+(128/389) Installing wireless-regdb (2026.05.30-r1)
+(129/389) Installing kmod-cfg80211 (6.12.74.6.18.7-r1)
+(130/389) Installing kmod-mdio-devres (6.12.74-r1)
+(131/389) Installing kmod-phylink (6.12.74-r1)
+(132/389) Installing kmod-pcs-xpcs (6.12.74-r1)
+(133/389) Installing kmod-stmmac-core (6.12.74-r1)
+(134/389) Installing kmod-dwmac-imx (6.12.74-r1)
+(135/389) Installing kmod-mdio-bus-mux (6.12.74-r1)
+(136/389) Installing kmod-dwmac-rockchip (6.12.74-r1)
+(137/389) Installing kmod-dwmac-sun8i (6.12.74-r1)
+(138/389) Installing kmod-e1000e (6.12.74-r1)
+(139/389) Installing kmod-nls-base (6.12.74-r1)
+(140/389) Installing kmod-nls-cp437 (6.12.74-r1)
+(141/389) Installing kmod-nls-iso8859-1 (6.12.74-r1)
+(142/389) Installing kmod-nls-utf8 (6.12.74-r1)
+(143/389) Installing kmod-fs-vfat (6.12.74-r1)
+(144/389) Installing kmod-crypto-crc32 (6.12.74-r1)
+(145/389) Installing kmod-acpi-mdio (6.12.74-r1)
+(146/389) Installing kmod-fsl-xgmac-mdio (6.12.74-r1)
+(147/389) Installing kmod-fsl-dpaa1-net (6.12.74-r1)
+(148/389) Installing kmod-fsl-mc-dpio (6.12.74-r1)
+(149/389) Installing kmod-fsl-pcs-lynx (6.12.74-r1)
+(150/389) Installing kmod-fsl-dpaa2-net (6.12.74-r1)
+(151/389) Installing kmod-fsl-enetc-net (6.12.74-r1)
+(152/389) Installing kmod-net-selftests (6.12.74-r1)
+(153/389) Installing kmod-fsl-fec (6.12.74-r1)
+(154/389) Installing kmod-regmap-core (6.12.74-r1)
+(155/389) Installing kmod-regmap-i2c (6.12.74-r1)
+(156/389) Installing kmod-gpio-pca953x (6.12.74-r1)
+(157/389) Installing kmod-i2c-mux (6.12.74-r1)
+(158/389) Installing kmod-i2c-mux-pca954x (6.12.74-r1)
+(159/389) Installing hostapd-common (2025.08.26~ca266cc2-r1)
+(160/389) Installing kmod-crypto-ccm (6.12.74-r1)
+(161/389) Installing kmod-crypto-cmac (6.12.74-r1)
+(162/389) Installing kmod-mac80211 (6.12.74.6.18.7-r1)
+(163/389) Installing kmod-macvlan (6.12.74-r1)
+(164/389) Installing kmod-mii (6.12.74-r1)
+(165/389) Installing kmod-marvell-mdio (6.12.74-r1)
+(166/389) Installing kmod-mvneta (6.12.74-r1)
+(167/389) Installing kmod-mvpp2 (6.12.74-r1)
+(168/389) Installing kmod-octeontx2-net (6.12.74-r1)
+(169/389) Installing kmod-lib-crc-itu-t (6.12.74-r1)
+(170/389) Installing kmod-phy-aquantia (6.12.74-r1)
+(171/389) Installing kmod-phy-broadcom (6.12.74-r1)
+(172/389) Installing kmod-phy-marvell (6.12.74-r1)
+(173/389) Installing kmod-phy-marvell-10g (6.12.74-r1)
+(174/389) Installing kmod-phy-realtek (6.12.74-r1)
+(175/389) Installing kmod-lib-crc16 (6.12.74-r1)
+(176/389) Installing kmod-phy-smsc (6.12.74-r1)
+(177/389) Installing kmod-mdio-gpio (6.12.74-r1)
+(178/389) Installing kmod-renesas-net-avb (6.12.74-r1)
+(179/389) Installing kmod-rtc-rx8025 (6.12.74-r1)
+(180/389) Installing kmod-sfp (6.12.74-r1)
+(181/389) Installing kmod-usb-common (6.12.74-r1)
+(182/389) Installing kmod-usb-core (6.12.74-r1)
+(183/389) Installing kmod-usb-acm (6.12.74-r1)
+(184/389) Installing kmod-usb-ehci (6.12.74-r1)
+(185/389) Installing kmod-usb-net (6.12.74-r1)
+(186/389) Installing kmod-usb-net-cdc-ether (6.12.74-r1)
+(187/389) Installing kmod-usb-net-cdc-ncm (6.12.74-r1)
+(188/389) Installing kmod-usb-wdm (6.12.74-r1)
+(189/389) Installing kmod-usb-net-cdc-mbim (6.12.74-r1)
+(190/389) Installing kmod-usb-net-huawei-cdc-ncm (6.12.74-r1)
+(191/389) Installing kmod-usb-net-qmi-wwan (6.12.74-r1)
+(192/389) Installing kmod-usb-net-rndis (6.12.74-r1)
+(193/389) Installing kmod-crypto-sha256 (6.12.74-r1)
+(194/389) Installing r8152-firmware (20260221-r1)
+(195/389) Installing kmod-usb-net-rtl8152 (6.12.74-r1)
+(196/389) Installing kmod-usb-net-sierrawireless (6.12.74-r1)
+(197/389) Installing kmod-usb-ohci (6.12.74-r1)
+(198/389) Installing kmod-usb-serial (6.12.74-r1)
+(199/389) Installing kmod-usb-serial-wwan (6.12.74-r1)
+(200/389) Installing kmod-usb-serial-option (6.12.74-r1)
+(201/389) Installing kmod-usb-serial-qualcomm (6.12.74-r1)
+(202/389) Installing kmod-usb-serial-sierrawireless (6.12.74-r1)
+(203/389) Installing kmod-scsi-core (6.12.74-r1)
+(204/389) Installing kmod-usb-storage (6.12.74-r1)
+(205/389) Installing kmod-usb-uhci (6.12.74-r1)
+(206/389) Installing kmod-usb2 (6.12.74-r1)
+(207/389) Installing kmod-vmxnet3 (6.12.74-r1)
+(208/389) Installing kmod-wdt-sp805 (6.12.74-r1)
+(209/389) Installing libustream-mbedtls20201210 (2026.03.01~99f1c0db-r1)
+(210/389) Installing logd (2025.10.30~6f78fa49-r1)
+(211/389) Installing cgi-io (2025.12.11~658b14bd-r1)
+(212/389) Installing liblucihttp0 (2023.03.15~9b5b683f-r1)
+(213/389) Installing liblucihttp-ucode (2023.03.15~9b5b683f-r1)
+(214/389) Installing rpcd (2026.06.04~28faf640-r1)
+(215/389) Installing rpcd-mod-file (2026.06.04~28faf640-r1)
+(216/389) Installing rpcd-mod-luci (20240305-r1)
+(217/389) Installing rpcd-mod-ucode (2026.06.04~28faf640-r1)
+(218/389) Installing ucode-mod-html (1)
+(219/389) Installing ucode-mod-log (2026.01.16~85922056-r1)
+(220/389) Installing ucode-mod-math (2026.01.16~85922056-r1)
+(221/389) Installing luci-base (26.176.74546~93e4a9b)
+(222/389) Installing luci-app-package-manager (26.176.74546~93e4a9b)
+(223/389) Installing luci-app-firewall (26.176.74546~93e4a9b)
+(224/389) Installing luci-lib-uqr (26.176.74546~93e4a9b)
+(225/389) Installing rpcd-mod-iwinfo (2026.06.04~28faf640-r1)
+(226/389) Installing luci-mod-network (26.176.74546~93e4a9b)
+(227/389) Installing luci-mod-status (26.176.74546~93e4a9b)
+(228/389) Installing luci-mod-system (26.176.74546~93e4a9b)
+(229/389) Installing luci-mod-admin-full (26.176.74546~93e4a9b)
+(230/389) Installing luci-proto-ipv6 (26.176.74546~93e4a9b)
+(231/389) Installing luci-proto-ppp (26.176.74546~93e4a9b)
+(232/389) Installing luci-theme-bootstrap (26.176.74546~93e4a9b)
+(233/389) Installing rpcd-mod-rrdns (20170710)
+(234/389) Installing uhttpd (2026.06.16~7b1bec45-r1)
+(235/389) Installing uhttpd-mod-ubus (2026.06.16~7b1bec45-r1)
+(236/389) Installing luci-light (26.176.74546~93e4a9b)
+(237/389) Installing luci (26.176.74546~93e4a9b)
+(238/389) Installing kmod-crypto-blake2b (6.12.74-r1)
+(239/389) Installing kmod-lib-xxhash (6.12.74-r1)
+(240/389) Installing kmod-crypto-xxhash (6.12.74-r1)
+(241/389) Installing kmod-crypto-acompress (6.12.74-r1)
+(242/389) Installing kmod-lib-lzo (6.12.74-r1)
+(243/389) Installing kmod-lib-raid6 (6.12.74-r1)
+(244/389) Installing kmod-lib-xor (6.12.74-r1)
+(245/389) Installing kmod-lib-zlib-deflate (6.12.74-r1)
+(246/389) Installing kmod-lib-zlib-inflate (6.12.74-r1)
+(247/389) Installing kmod-lib-zstd (6.12.74-r1)
+(248/389) Installing kmod-fs-btrfs (6.12.74-r1)
+(249/389) Installing libattr (2.5.2-r3)
+(250/389) Installing liblzo2 (2.10-r5)
+(251/389) Installing libmount1 (2.41.5-r1)
+(252/389) Installing btrfs-progs (6.11-r3)
+(253/389) Installing dosfstools (4.2-r4)
+(254/389) Installing exfat-fsck (1.2.9-r1)
+(255/389) Installing exfat-mkfs (1.2.9-r1)
+(256/389) Installing kmod-fs-exfat (6.12.74-r1)
+(257/389) Installing kmod-fs-msdos (6.12.74-r1)
+(258/389) Installing kmod-fs-ntfs3 (6.12.74-r1)
+(259/389) Installing kmod-nls-cp932 (6.12.74-r1)
+(260/389) Installing kmod-nls-cp936 (6.12.74-r1)
+(261/389) Installing kmod-nls-cp950 (6.12.74-r1)
+(262/389) Installing libsmartcols1 (2.41.5-r1)
+(263/389) Installing lsblk (2.41.5-r1)
+(264/389) Installing liblua5.1.5 (5.1.5-r11)
+(265/389) Installing liblucihttp-lua (2023.03.15~9b5b683f-r1)
+(266/389) Installing libubus-lua (2026.05.23~795b32bb-r2)
+(267/389) Installing lua (5.1.5-r11)
+(268/389) Installing luci-lib-ip (26.176.74546~93e4a9b)
+(269/389) Installing luci-lib-jsonc (26.176.74546~93e4a9b)
+(270/389) Installing luci-lib-nixio (26.176.74546~93e4a9b)
+(271/389) Installing luci-lib-base (26.176.74546~93e4a9b)
+(272/389) Installing ucode-mod-lua (1)
+(273/389) Installing luci-lua-runtime (26.176.74546~93e4a9b)
+(274/389) Installing luci-compat (26.176.74546~93e4a9b)
+(275/389) Installing libgpg-error (1.55-r1)
+(276/389) Installing libgcrypt (1.11.1-r1)
+(277/389) Installing kmod-fuse (6.12.74-r1)
+(278/389) Installing ntfs-3g (2022.10.3-r1)
+(279/389) Installing ntfs-3g-utils (2022.10.3-r1)
+(280/389) Installing libparted (3.6-r2)
+(281/389) Installing parted (3.6-r2)
+(282/389) Installing libstdcpp6 (14.3.0-r5)
+(283/389) Installing smartmontools (7.5-r1)
+(284/389) Installing luci-app-diskman (0.2.13-r1)
+(285/389) Installing libelf1 (0.192-r1)
+(286/389) Installing libbpf1 (1.6.2-r1)
+(287/389) Installing ip-full (6.18.0-r2)
+(288/389) Installing kmod-dummy (6.12.74-r1)
+(289/389) Installing kmod-inet-diag (6.12.74-r1)
+(290/389) Installing kmod-nf-socket (6.12.74-r1)
+(291/389) Installing kmod-nft-socket (6.12.74-r1)
+(292/389) Installing kmod-nf-tproxy (6.12.74-r1)
+(293/389) Installing kmod-nft-tproxy (6.12.74-r1)
+(294/389) Installing kmod-tun (6.12.74-r1)
+(295/389) Installing yq (4.53.3-r2)
+(296/389) Installing nikki (2026.01.16-r1)
+(297/389) Installing luci-app-nikki (1.25.1-r1)
+(298/389) Installing luci-app-temp-status (0.8.1-r1)
+(299/389) Installing libinotifytools (4.23.9.0-r2)
+(300/389) Installing inotifywait (4.23.9.0-r2)
+(301/389) Installing libpcre2 (10.47-r1)
+(302/389) Installing libxml2-16 (2.15.1-r1)
+(303/389) Installing zoneinfo-core (2026b-r1)
+(304/389) Installing php8 (8.4.21-r1)
+(305/389) Installing php8-cgi (8.4.21-r1)
+(306/389) Installing php8-fastcgi (8.4.21-r1)
+(307/389) Installing php8-fpm (8.4.21-r1)
+(308/389) Installing php8-mod-ctype (8.4.21-r1)
+(309/389) Installing php8-mod-fileinfo (8.4.21-r1)
+(310/389) Installing php8-mod-iconv (8.4.21-r1)
+(311/389) Installing oniguruma5 (6.9.10-r4)
+(312/389) Installing php8-mod-mbstring (8.4.21-r1)
+(313/389) Installing php8-mod-session (8.4.21-r1)
+(314/389) Installing libatomic1 (14.3.0-r5)
+(315/389) Installing libgnutls (3.8.10-r1)
+(316/389) Installing libzip-gnutls (1.11.4-r1)
+(317/389) Installing php8-mod-zip (8.4.21-r1)
+(318/389) Installing libbz2-1.0 (1.0.8-r1)
+(319/389) Installing bzip2 (1.0.8-r1)
+(320/389) Installing libacl (2.3.2-r2)
+(321/389) Installing libzstd (1.5.7-r1)
+(322/389) Installing liblzma (5.8.1-r1)
+(323/389) Installing xz-utils (5.8.1-r1)
+(324/389) Installing xz (5.8.1-r1)
+(325/389) Installing tar (1.35-r1)
+(326/389) Installing zoneinfo-asia (2026b-r1)
+(327/389) Installing luci-app-tinyfilemanager (2.6-r20260616)
+(328/389) Installing libcap (2.69-r1)
+(329/389) Installing libuv1 (1.48.0-r1)
+(330/389) Installing libwebsockets-full (4.4.1-r1)
+(331/389) Installing ttyd (1.7.7-r1)
+(332/389) Installing luci-app-ttyd (26.176.74546~93e4a9b)
+(333/389) Installing libdbus (1.16.2-r4)
+(334/389) Installing libexpat (2.8.1-r1)
+(335/389) Installing dbus (1.16.2-r4)
+(336/389) Installing libffi (3.4.7-r1)
+(337/389) Installing glib2 (2.82.0-r1)
+(338/389) Installing libmbim (1.32.0-r1)
+(339/389) Installing libqrtr-glib (1.2.2-r3)
+(340/389) Installing libqmi (1.36.0-r1)
+(341/389) Installing kmod-lib-crc-ccitt (6.12.74-r1)
+(342/389) Installing kmod-slhc (6.12.74-r1)
+(343/389) Installing kmod-ppp (6.12.74-r1)
+(344/389) Installing ppp (2.5.2-r3)
+(345/389) Installing modemmanager (1.24.0-r8)
+(346/389) Installing luci-proto-modemmanager (26.176.74546~93e4a9b)
+(347/389) Installing chat (2.5.2-r3)
+(348/389) Installing comgt (0.32-r36)
+(349/389) Installing wwan (2019.04.29-r6)
+(350/389) Installing comgt-ncm (0.32-r36)
+(351/389) Installing luci-proto-ncm (26.176.74546~93e4a9b)
+(352/389) Installing uqmi (2025.07.30~7914da43-r2)
+(353/389) Installing luci-proto-qmi (26.176.74546~93e4a9b)
+(354/389) Installing px5g-mbedtls (11)
+(355/389) Installing luci-ssl (26.176.74546~93e4a9b)
+(356/389) Installing luci-theme-argon (24.354.21394~1a22c2e)
+(357/389) Installing mbim-utils (1.32.0-r1)
+(358/389) Installing libf2fs6 (1.16.0-r4)
+(359/389) Installing mkf2fs (1.16.0-r4)
+(360/389) Installing mtd (27)
+(361/389) Installing odhcp6c (2026.06.20~07d324ee-r1)
+(362/389) Installing odhcpd-ipv6only (2026.06.18~2a42d34c-r1)
+(363/389) Installing openssh-sftp-server (10.3_p1-r1)
+(364/389) Installing partx-utils (2.41.5-r1)
+(365/389) Installing php8-cli (8.4.21-r1)
+(366/389) Installing kmod-pppox (6.12.74-r1)
+(367/389) Installing kmod-pppoe (6.12.74-r1)
+(368/389) Installing ppp-mod-pppoe (2.5.2-r3)
+(369/389) Installing procd-ujail (2026.03.13~58eb263d-r1)
+(370/389) Installing qmi-utils (1.36.0-r1)
+(371/389) Installing screen (5.0.1-r1)
+(372/389) Installing uci (2025.12.02~66127cd7-r1)
+(373/389) Installing umbim (2025.10.04~2939b7d0-r1)
+(374/389) Installing unzip (6.0-r9)
+(375/389) Installing getrandom (2025.10.30~6f78fa49-r1)
+(376/389) Installing urandom-seed (3)
+(377/389) Installing urngd (2025.10.03~f17e33d9-r1)
+(378/389) Installing libusb-1.0-0 (1.0.29-r1)
+(379/389) Installing usb-modeswitch (2025.10.04~9b4d0a6e-r1)
+(380/389) Installing libevdev (1.13.4-r1)
+(381/389) Installing libudev-zero (1.0.4-r1)
+(382/389) Installing usbids (0.407-r1)
+(383/389) Installing usbutils (019-r1)
+(384/389) Installing wget-ssl (1.25.0-r2)
+(385/389) Installing libopenssl-conf (3.5.7-r1)
+(386/389) Installing libopenssl-legacy (3.5.7-r1)
+(387/389) Installing wpad-openssl (2025.08.26~ca266cc2-r1)
+(388/389) Installing kmod-zram (6.12.74-r1)
+(389/389) Installing zram-swap (32)
+OK: 133.1 MiB in 389 packages
+
+Finalizing root filesystem...
+add alternative: /bin/base64 -> /usr/libexec/base64-coreutils
+add alternative: /bin/sleep -> /usr/libexec/sleep-coreutils
+add alternative: /bin/stat -> /usr/libexec/stat-coreutils
+add alternative: /usr/bin/ssh-keygen -> /usr/sbin/dropbear
+add alternative: /usr/bin/scp -> /usr/sbin/dropbear
+add alternative: /usr/bin/ssh -> /usr/sbin/dropbear
+add alternative: /sbin/ip -> /usr/libexec/ip-full
+add alternative: /sbin/logread -> /usr/libexec/logread-ubox
+add alternative: /usr/bin/mihomo -> /usr/libexec/nikki
+Create '/tmp/openwrt-build/imagebuilder/build_dir/target-aarch64_generic_musl/root-armsr/etc/filesystems'.
+Add 'ntfs-3g' to known filesystems.
+add alternative: /bin/tar -> /usr/libexec/tar-gnu
+add alternative: /sbin/rmmod -> /sbin/kmodloader
+add alternative: /sbin/insmod -> /sbin/kmodloader
+add alternative: /sbin/lsmod -> /sbin/kmodloader
+add alternative: /sbin/modinfo -> /sbin/kmodloader
+add alternative: /sbin/modprobe -> /sbin/kmodloader
+add alternative: /usr/bin/lsusb -> /usr/libexec/lsusb-usbutils
+add alternative: /usr/bin/wget -> /usr/libexec/wget-ssl
+add alternative: /usr/bin/xz -> /usr/libexec/xz-lzmautils
+add alternative: /usr/bin/lzcat -> /usr/libexec/xz-lzmautils
+add alternative: /usr/bin/lzma -> /usr/libexec/xz-lzmautils
+add alternative: /usr/bin/unlzma -> /usr/libexec/xz-lzmautils
+add alternative: /usr/bin/unxz -> /usr/libexec/xz-lzmautils
+add alternative: /usr/bin/xzcat -> /usr/libexec/xz-lzmautils
+Enabling boot
+Enabling cron
+Enabling dbus
+Enabling dnsmasq
+Enabling done
+Enabling dropbear
+Enabling firewall
+Enabling fstab
+Enabling gpio_switch
+Enabling issue
+Enabling led
+Enabling log
+Enabling modemmanager
+Enabling network
+Enabling nikki
+Enabling odhcpd
+Enabling openssl
+Enabling packet_steering
+Enabling php8-fastcgi
+Enabling php8-fpm
+Enabling radius
+Enabling repair_ro
+Enabling rpcd
+Enabling sysctl
+Enabling sysfixtime
+Enabling sysntpd
+Enabling system
+Enabling tinyfilemanager
+Enabling ttyd
+Enabling ucitrack
+Enabling uhttpd
+Enabling umount
+Enabling urandom_seed
+Enabling urngd
+Enabling usbmode
+Enabling wpad
+Enabling zram
+
+Building images...
+Parallel mksquashfs: Using 16 processors
+Creating 4.0 filesystem on /tmp/openwrt-build/imagebuilder/build_dir/target-aarch64_generic_musl/linux-armsr_armv8/root.squashfs, block size 262144.
+[|                                                             ]    0/3503   0%[=============================================================\] 3687/3687 100%
+
+Exportable Squashfs 4.0 filesystem, xz compressed, data block size 262144
+	compressed data, compressed metadata, compressed fragments,
+	no xattrs, compressed ids
+	duplicates are removed
+Filesystem size 51381.99 Kbytes (50.18 Mbytes)
+	26.04% of uncompressed filesystem size (197322.61 Kbytes)
+Inode table size 25930 bytes (25.32 Kbytes)
+	21.92% of uncompressed inode table size (118272 bytes)
+Directory table size 33894 bytes (33.10 Kbytes)
+	46.45% of uncompressed directory table size (72962 bytes)
+Number of duplicate files found 153
+Number of inodes 3514
+Number of files 2906
+Number of fragments 136
+Number of symbolic links 383
+Number of device nodes 1
+Number of fifo nodes 0
+Number of socket nodes 0
+Number of directories 224
+Number of hard-links 0
+Number of ids (unique uids + gids) 1
+Number of uids 1
+	unknown (0)
+Number of gids 1
+	unknown (0)
+Creating filesystem with parameters:
+    Size: 536870912
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 8192
+    Inode size: 256
+    Journal blocks: 2048
+    Label: rootfs
+    Blocks: 131072
+    Block groups: 4
+    Reserved blocks: 0
+    Reserved block group size: 31
+Created filesystem with 3523/32768 inodes and 55939/131072 blocks
+mkfs.fat 4.2 (2021-01-31)
+mkfs.fat 4.2 (2021-01-31)
+
+Calculating checksums...
+[[92m SUCCESS [0m] Build completed successfully!
+[?25hRepacking firmware...
+[[94m INFO [0m] Using Branch: main
+[[95m STEPS [0m] Repacking with Ophub...
+[[94m INFO [0m] Downloading builder...
+[[95m STEPS [0m] Aria2 Downloader
+[[94m INFO [0m] Downloading: https://github.com/andrereynaldi/amlogic-s9xxx-openwrt/archive/refs/heads/main.zip (Attempt 1/5)
+[[92m SUCCESS [0m] Downloaded: main.zip
+[[94m INFO [0m] Copying rootfs...
+[[94m INFO [0m] Executing Ophub Script...
+[[95m STEPS [0m] Welcome to the OpenWrt Image Builder!
+[[94m INFO [0m] Build server environment: [ Release: noble / Host: x86_64 ] 
+
+[[95m STEPS [0m] Initializing build variables...
+[[94m INFO [0m] The kernel tags list: [ stable ]
+[[95m STEPS [0m] Searching for OpenWrt rootfs file...
+[[94m INFO [0m] Found OpenWrt rootfs file: [ openwrt-armsr-armv8-generic-rootfs.tar.gz ]
+[[94m INFO [0m] The source codename: [  ], source branch: [  ], source repository: [  ].
+[[95m STEPS [0m] Downloading dependency files...
+[[94m INFO [0m] OpenWrt: u-boot download completed.
+[[94m INFO [0m] OpenWrt: firmware download completed.
+[[94m INFO [0m] OpenWrt: platform-files download completed.
+[[94m INFO [0m] OpenWrt: different-files download completed.
+[[94m INFO [0m] OpenWrt: balethirq download completed.
+[[94m INFO [0m] luci-app-amlogic: sbin download completed.
+[[94m INFO [0m] luci-app-amlogic: share download completed.
+[[95m STEPS [0m] Querying latest kernel versions...
+[[94m INFO [0m] (1.1) Querying latest kernel version for [ stable - 5.15.y ]
+[[94m INFO [0m] (1.1) [ stable - 5.15.206 ] is the latest kernel version. 
+
+[[94m INFO [0m] (1.2) Querying latest kernel version for [ stable - 6.12.y ]
+[[94m INFO [0m] (1.2) [ stable - 6.12.87 ] is the latest kernel version. 
+
+[[94m INFO [0m] (1.3) Querying latest kernel version for [ stable - 6.1.y ]
+[[94m INFO [0m] (1.3) [ stable - 6.1.172 ] is the latest kernel version. 
+
+[[94m INFO [0m] (1.4) Querying latest kernel version for [ stable - 6.6.y ]
+[[94m INFO [0m] (1.4) [ stable - 6.6.138 ] is the latest kernel version. 
+
+[[95m STEPS [0m] Downloading kernel files...
+[[94m INFO [0m] (1.1) [ stable - 5.15.206 ] Downloading kernel from [ https://github.com/andrereynaldi/Kernel-/releases/download/kernel_stable/5.15.206.tar.gz ]
+[[94m INFO [0m] All [ 6 ] kernel files passed SHA256 integrity verification.
+
+[[94m INFO [0m] (1.2) [ stable - 6.12.87 ] Downloading kernel from [ https://github.com/andrereynaldi/Kernel-/releases/download/kernel_stable/6.12.87.tar.gz ]
+[[94m INFO [0m] All [ 6 ] kernel files passed SHA256 integrity verification.
+
+[[94m INFO [0m] (1.3) [ stable - 6.1.172 ] Downloading kernel from [ https://github.com/andrereynaldi/Kernel-/releases/download/kernel_stable/6.1.172.tar.gz ]
+[[94m INFO [0m] All [ 6 ] kernel files passed SHA256 integrity verification.
+
+[[94m INFO [0m] (1.4) [ stable - 6.6.138 ] Downloading kernel from [ https://github.com/andrereynaldi/Kernel-/releases/download/kernel_stable/6.6.138.tar.gz ]
+[[94m INFO [0m] All [ 6 ] kernel files passed SHA256 integrity verification.
+
+[[94m INFO [0m] [ 1 ] target board(s) to build: [ s905x ]
+[[94m INFO [0m] Kernel Repo: [ andrereynaldi/Kernel- ], Kernel Usage: [  ] 
+
+[[94m INFO [0m] Server disk usage before build: 
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/root      ext4  247G   35G  213G  15% / 
+
+[[95m STEPS [0m] Starting OpenWrt firmware build...
+(1.1) Making OpenWrt [[92m s905x - stable/5.15.206 [0m]. Remaining space: 212 GiB.
+ [🌿] (1/6) Creating OpenWrt image.
+ [🌿] (2/6) Extracting OpenWrt files.
+ [🌿] (3/6) Replacing kernel files.
+ [🌿] (4/6) Configuring bootfs files.
+ [🌿] (5/6) Configuring rootfs files.
+ [🌿] (6/6) Cleaning temporary files.
+(1.1) OpenWrt built successfully. 
+
+(1.2) Making OpenWrt [[92m s905x - stable/6.1.172 [0m]. Remaining space: 211 GiB.
+ [🌿] (1/6) Creating OpenWrt image.
+ [🌿] (2/6) Extracting OpenWrt files.
+ [🌿] (3/6) Replacing kernel files.
+ [🌿] (4/6) Configuring bootfs files.
+ [🌿] (5/6) Configuring rootfs files.
+ [🌿] (6/6) Cleaning temporary files.
+(1.2) OpenWrt built successfully. 
+
+(1.3) Making OpenWrt [[92m s905x - stable/6.6.138 [0m]. Remaining space: 211 GiB.
+ [🌿] (1/6) Creating OpenWrt image.
+ [🌿] (2/6) Extracting OpenWrt files.
+ [🌿] (3/6) Replacing kernel files.
+ [🌿] (4/6) Configuring bootfs files.
+ [🌿] (5/6) Configuring rootfs files.
+ [🌿] (6/6) Cleaning temporary files.
+(1.3) OpenWrt built successfully. 
+
+(1.4) Making OpenWrt [[92m s905x - stable/6.12.87 [0m]. Remaining space: 211 GiB.
+ [🌿] (1/6) Creating OpenWrt image.
+ [🌿] (2/6) Extracting OpenWrt files.
+ [🌿] (3/6) Replacing kernel files.
+ [🌿] (4/6) Configuring bootfs files.
+ [🌿] (5/6) Configuring rootfs files.
+ [🌿] (6/6) Cleaning temporary files.
+(1.4) OpenWrt built successfully. 
+
+[[95m STEPS [0m] Server disk usage after build: 
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/root      ext4  247G   36G  212G  15% / 
+
+[[92m SUCCESS [0m] All builds completed successfully.
+[[94m INFO [0m] Saving firmware...
+-rw-r--r-- 1 root root  67M Jun 29 16:51 /tmp/openwrt-build/imagebuilder/compiled_images/openwrt-25.12.1-armsr-armv8-generic_nikki-rootfs.tar.gz
+-rw-r--r-- 1 root root 256M Jun 29 16:55 /tmp/openwrt-build/imagebuilder/compiled_images/openwrt_amlogic_s905x_k5.15.206_2026.06.29.img.gz
+-rw-r--r-- 1 root root 250M Jun 29 16:55 /tmp/openwrt-build/imagebuilder/compiled_images/openwrt_amlogic_s905x_k6.1.172_2026.06.29.img.gz
+-rw-r--r-- 1 root root 268M Jun 29 16:55 /tmp/openwrt-build/imagebuilder/compiled_images/openwrt_amlogic_s905x_k6.12.87_2026.06.29.img.gz
+-rw-r--r-- 1 root root 251M Jun 29 16:55 /tmp/openwrt-build/imagebuilder/compiled_images/openwrt_amlogic_s905x_k6.6.138_2026.06.29.img.gz
+[[92m SUCCESS [0m] Repack Complete!
+[?25hRenaming firmware...
+[[95m STEPS [0m] Renaming firmware files...
+[[94m INFO [0m] Renaming: openwrt_amlogic_s905x_k5.15.206_2026.06.29.img.gz → DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k5.15.206-nikki-29062026.img.gz
+[[94m INFO [0m] Renaming: openwrt_amlogic_s905x_k6.1.172_2026.06.29.img.gz → DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.1.172-nikki-29062026.img.gz
+[[94m INFO [0m] Renaming: openwrt_amlogic_s905x_k6.12.87_2026.06.29.img.gz → DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.12.87-nikki-29062026.img.gz
+[[94m INFO [0m] Renaming: openwrt_amlogic_s905x_k6.6.138_2026.06.29.img.gz → DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.6.138-nikki-29062026.img.gz
+[[94m INFO [0m] Rename operation completed.
+[?25h=== Build Complete ===
+Output files:
+total 1.1G
+-rw-r--r-- 1 root root 256M Jun 29 16:55 DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k5.15.206-nikki-29062026.img.gz
+-rw-r--r-- 1 root root 250M Jun 29 16:55 DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.1.172-nikki-29062026.img.gz
+-rw-r--r-- 1 root root 268M Jun 29 16:55 DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.12.87-nikki-29062026.img.gz
+-rw-r--r-- 1 root root 251M Jun 29 16:55 DreamOs-OpenWrt-25.12.1-s905x_HG680P-WIFION-k6.6.138-nikki-29062026.img.gz
+-rw-r--r-- 1 root root  67M Jun 29 16:51 openwrt-25.12.1-armsr-armv8-generic_nikki-rootfs.tar.gz
+=======================

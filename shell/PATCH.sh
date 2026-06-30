@@ -23,30 +23,29 @@ apply_distro_patches() {
     fi
 }
 
-# Patch package signature
+# Patch package signature and add custom feeds
 patch_signature_check() {
     log "INFO" "Disabling package signature"
     
-    local branch_major=$(echo "${BRANCH}" | cut -d'.' -f1)
     local repo_file="repositories"
-    
-    case "$branch_major" in
-        "24"|"23")
-            repo_file="repositories.conf"
-            ;;
-        "25"|*)
-            repo_file="repositories"
-            ;;
-    esac
-    
     log "INFO" "Using repository file: ${repo_file}"
-    sed -i '\|option check_signature| s|^|#|' "${repo_file}"
+    
+    # Disable signature check in .config (must be unset, not =n)
+    sed -i '/CONFIG_SIGNATURE_CHECK/d' .config
+    echo "# CONFIG_SIGNATURE_CHECK is not set" >> .config
+    
+    # Add fantastic-packages feeds
+    log "INFO" "Adding fantastic-packages APK feeds for ${ARCH_3}"
+    {
+        echo "https://fantastic-packages.github.io/releases/25.12/packages/${ARCH_3}/luci/packages.adb"
+        echo "https://fantastic-packages.github.io/releases/25.12/packages/${ARCH_3}/packages/packages.adb"
+        echo "https://fantastic-packages.github.io/releases/25.12/packages/${ARCH_3}/special/packages.adb"
+    } >> "${repo_file}"
 }
 
 # Force installation options in Makefile
 patch_makefile() {
-    log "INFO" "Applying force options to Makefile..."
-    sed -i "s|install \$(BUILD_PACKAGES)|install \$(BUILD_PACKAGES) --force-overwrite --force-downgrade|" Makefile
+    log "INFO" "Skipping Makefile force options (apk format)"
 }
 
 # Configure partition sizes

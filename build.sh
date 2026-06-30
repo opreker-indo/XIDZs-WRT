@@ -13,9 +13,9 @@ Usage: $0 -t TYPE -b BRANCH -d DEVICE -v TUNNEL [-c]
 
 Options:
     -t TYPE       Build type: ophub, official, ulo
-    -b BRANCH     Release branch: openwrt:24.10.5, openwrt:23.05.6, immortalwrt:24.10.5, immortalwrt:23.05.6
+    -b BRANCH     Release branch: openwrt:25.12.1, immortalwrt:25.12.1
     -d DEVICE     Target device (see list below)
-    -v TUNNEL     Tunnel VPN: openclash, openclash-nikki, openclash-fusiontunx, openclash-nikki-passwall, no-tunnel
+    -v TUNNEL     Tunnel VPN: nikki, fusiontunx, passwall, nikki-passwall, nikki-fusiontunx, no-tunnel
     -c            Run 'make clean' before build (optional)
     -h            Show this help message
 
@@ -38,9 +38,9 @@ ULO Devices:
     s905x2-hg680-fj-v3, s905x4-v1, s905x4-v2, s905x4-v3, s905x4-v4
 
 Examples:
-    $0 -t ophub -b openwrt:24.10.4 -d s905x-b860h -v openclash -c
-    $0 -t official -b immortalwrt:23.05.6 -d nanopi-r4s -v openclash-nikki
-    $0 -t ulo -b openwrt:24.10.4 -d h618-orangepi-zero3 -v no-tunnel
+    $0 -t ophub -b openwrt:25.12.1 -d s905x-b860h -v nikki -c
+    $0 -t official -b openwrt:25.12.1 -d nanopi-r4s -v nikki-passwall
+    $0 -t ulo -b openwrt:25.12.1 -d h618-orangepi-zero3 -v no-tunnel
 
 EOF
 }
@@ -212,7 +212,7 @@ case "${TYPE}" in
 esac
 
 case "${TUNNEL}" in
-    openclash|openclash-nikki|openclash-fusiontunx|openclash-nikki-passwall|openclash-passwall|no-tunnel) ;;
+    nikki|fusiontunx|passwall|nikki-passwall|nikki-fusiontunx|no-tunnel) ;;
     *) echo "Error: Invalid tunnel option"; exit 1 ;;
 esac
 
@@ -269,20 +269,13 @@ esac
 export PROFILE TARGET_SYSTEM TARGET_NAME ARCH_1 ARCH_2 ARCH_3 TARGET_BUILD KERNEL
 
 if [ ! -d "${BUILD_DIR}/imagebuilder" ]; then
-    CURVER=$(echo "${VERSION}" | cut -d'.' -f1)
-    archive_ext=$([ "${CURVER}" = "24" ] && echo "tar.zst" || echo "tar.xz")
-
-    RELEASE="${DOWNLOAD_BASE}/releases/${VERSION}/targets/${TARGET_SYSTEM}/${BASE}-imagebuilder-${VERSION}-${TARGET_NAME}.Linux-x86_64.${archive_ext}"
+    RELEASE="${DOWNLOAD_BASE}/releases/${VERSION}/targets/${TARGET_SYSTEM}/${BASE}-imagebuilder-${VERSION}-${TARGET_NAME}.Linux-x86_64.tar.zst"
 
     echo "Downloading ImageBuilder..."
     curl -# -L -O "${RELEASE}"
 
     echo "Extracting archive..."
-    case "${archive_ext}" in
-        tar.xz) tar -xJf ./*-imagebuilder-* && rm -f ./*-imagebuilder-*.tar.xz ;;
-        tar.zst) tar --use-compress-program=unzstd -xf ./*-imagebuilder-* && rm -f ./*-imagebuilder-*.tar.zst ;;
-        *) echo "Error: Unknown archive format"; exit 1 ;;
-    esac
+    tar --use-compress-program=unzstd -xf ./*-imagebuilder-* && rm -f ./*-imagebuilder-*.tar.zst
 
     mv ./*-imagebuilder-* "${BUILD_DIR}/imagebuilder"
     cp -r "${SCRIPT_DIR}/files" "${SCRIPT_DIR}/packages" "${SCRIPT_DIR}/shell" "${BUILD_DIR}/imagebuilder/"
@@ -292,6 +285,11 @@ else
 fi
 
 cd "${BUILD_DIR}/imagebuilder"
+
+if [ "${CLEAN}" -eq 1 ]; then
+    echo "Running make clean..."
+    make clean
+fi
 
 echo "Downloading external packages..."
 chmod +x shell/PACKAGES.sh
@@ -312,10 +310,8 @@ chmod +x shell/TUNNEL.sh
 mkdir -p compiled_images
 chmod +x shell/MAKE-IMAGE.sh
 
-if [ "${CLEAN}" -eq 1 ]; then
-    echo "Running make clean..."
-    make clean
-fi
+echo "Generating package index..."
+make package_index
 
 echo "Building firmware..."
 ./shell/MAKE-IMAGE.sh "${PROFILE}" "${TUNNEL}"
